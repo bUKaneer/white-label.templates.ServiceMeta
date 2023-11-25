@@ -11,21 +11,22 @@ $DockerExecutablePath = "C:\Program Files\Docker\Docker\resources\bin\docker.exe
 
 # Set Project Folders 
 $SolutionRootFolder = Get-Location 
-$UserInterfaceServerProjectFolder = "$SolutionRootFolder\src\Application\UserInterface\UserInterface"
-$ApiProjectFolder = "$SolutionRootFolder\src\Application\WebApi"
-$DomainProjectFolder = "$SolutionRootFolder\src\Application\Domain"
-$InfrastructureProjectFolder = "$SolutionRootFolder\src\Application\Infrastructure"
-$UseCasesProjectFolder = "$SolutionRootFolder\src\Application\UseCases"
+$UserInterfaceServerProjectFolder = "$SolutionRootFolder\src\Application\UserInterface\$($ProjectName).UserInterface"
+$UserInterfaceClientProjectFolder = "$SolutionRootFolder\src\Application\UserInterface\$($ProjectName).UserInterface.Client"
+$ApiProjectFolder = "$SolutionRootFolder\src\Application\$($ProjectName).WebApi"
+$DomainProjectFolder = "$SolutionRootFolder\src\$($ProjectName).Domain"
+$InfrastructureProjectFolder = "$SolutionRootFolder\src\$($ProjectName).Infrastructure"
+$UseCasesProjectFolder = "$SolutionRootFolder\src\$($ProjectName).UseCases"
 
 # Add Service Defaults Reference to User Interface and Api 
 
 Set-Location $UserInterfaceServerProjectFolder 
 
-Start-Process -NoNewWindow $DotNetExecutablePath -ArgumentList "add", ".\UserInterface.csproj", "package", $serviceDefaultsPackage
+Start-Process -NoNewWindow $DotNetExecutablePath -ArgumentList "add", ".\$($ProjectName).UserInterface.csproj", "package", $serviceDefaultsPackage
 
 Set-Location $ApiProjectFolder
 
-Start-Process -NoNewWindow $DotNetExecutablePath -ArgumentList "add", ".\WebApi.csproj", "package", $serviceDefaultsPackage
+Start-Process -NoNewWindow $DotNetExecutablePath -ArgumentList "add", ".\$($ProjectName).WebApi.csproj", "package", $serviceDefaultsPackage
 
 # Setup Service in Aspire Host 
 
@@ -33,9 +34,13 @@ Set-Location $aspireSolutionFolder
 
 # Add Projects to Aspire Solution
 
-$UserInterfaceProjectFilePath = "$UserInterfaceServerProjectFolder\$($ProjectName).UserInterface.csproj"
+$UserInterfaceServerProjectFilePath = "$UserInterfaceServerProjectFolder\$($ProjectName).UserInterface.csproj"
 
-Start-Process -Wait -NoNewWindow $DotNetExecutablePath -ArgumentList "sln", "add", $UserInterfaceProjectFilePath, "--solution-folder", "Services\$($ProjectName)"
+Start-Process -Wait -NoNewWindow $DotNetExecutablePath -ArgumentList "sln", "add", $UserInterfaceServerProjectFilePath, "--solution-folder", "Services\$($ProjectName)"
+
+$UserInterfaceClientProjectFilePath = "$UserInterfaceClientProjectFolder\$($ProjectName).UserInterface.Client.csproj"
+
+Start-Process -Wait -NoNewWindow $DotNetExecutablePath -ArgumentList "sln", "add", $UserInterfaceServerProjectFilePath, "--solution-folder", "Services\$($ProjectName)"
 
 $WebApiProjectFilePath = "$ApiProjectFolder\$($ProjectName).WebApi.csproj"
 
@@ -59,7 +64,9 @@ $AspireAppHostFolder = "$aspireSolutionFolder\AppHost"
 
 Set-Location $AspireAppHostFolder
 
-Start-Process -Wait -NoNewWindow $DotNetExecutablePath -ArgumentList "add", "reference", $UserInterfaceProjectFilePath
+Start-Process -Wait -NoNewWindow $DotNetExecutablePath -ArgumentList "add", "reference", $UserInterfaceServerProjectFilePath
+
+Start-Process -Wait -NoNewWindow $DotNetExecutablePath -ArgumentList "add", "reference", $UserInterfaceClientProjectFilePath
 
 Start-Process -Wait -NoNewWindow $DotNetExecutablePath -ArgumentList "add", "reference", $WebApiProjectFilePath
 
