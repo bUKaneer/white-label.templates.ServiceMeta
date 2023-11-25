@@ -5,21 +5,21 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{3F3705B1-D092-4DB5-B621-3364BFEC3CE8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhiteLabel.ServiceMeta.Domain", "src\Domain\WhiteLabel.ServiceMeta.Domain.csproj", "{5338C008-1440-4DF2-BE7C-7761F20288D3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhiteLabel.ServiceMeta.Domain", "src\WhiteLabel.ServiceMeta.Domain\WhiteLabel.ServiceMeta.Domain.csproj", "{5338C008-1440-4DF2-BE7C-7761F20288D3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{B55874DC-5A8A-49CA-AADC-9E60432ED38F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UserInterface", "UserInterface", "{4AB90273-DD35-439E-AE5A-0321FB374247}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhiteLabel.ServiceMeta.UserInterface.Client", "src\Application\UserInterface\UserInterface.Client\WhiteLabel.ServiceMeta.UserInterface.Client.csproj", "{81E7F327-476E-4788-94B0-E4DB355FAA81}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhiteLabel.ServiceMeta.UserInterface.Client", "src\Application\UserInterface\WhiteLabel.ServiceMeta.UserInterface.Client\WhiteLabel.ServiceMeta.UserInterface.Client.csproj", "{81E7F327-476E-4788-94B0-E4DB355FAA81}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhiteLabel.ServiceMeta.UserInterface", "src\Application\UserInterface\UserInterface\WhiteLabel.ServiceMeta.UserInterface.csproj", "{C77E6EB8-FD46-4F50-A5E0-C0CD1AA006FA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhiteLabel.ServiceMeta.UserInterface", "src\Application\UserInterface\WhiteLabel.ServiceMeta.UserInterface\WhiteLabel.ServiceMeta.UserInterface.csproj", "{C77E6EB8-FD46-4F50-A5E0-C0CD1AA006FA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhiteLabel.ServiceMeta.Infrastructure", "src\Infrastructure\WhiteLabel.ServiceMeta.Infrastructure.csproj", "{5429AE37-8D87-47E0-B698-6E905EB201C9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhiteLabel.ServiceMeta.Infrastructure", "src\WhiteLabel.ServiceMeta.Infrastructure\WhiteLabel.ServiceMeta.Infrastructure.csproj", "{5429AE37-8D87-47E0-B698-6E905EB201C9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhiteLabel.ServiceMeta.UseCases", "src\UseCases\WhiteLabel.ServiceMeta.UseCases.csproj", "{8ECFBFE5-F088-4004-9559-DCE38C289E14}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhiteLabel.ServiceMeta.UseCases", "src\WhiteLabel.ServiceMeta.UseCases\WhiteLabel.ServiceMeta.UseCases.csproj", "{8ECFBFE5-F088-4004-9559-DCE38C289E14}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhiteLabel.ServiceMeta.WebApi", "src\Application\WebApi\WhiteLabel.ServiceMeta.WebApi.csproj", "{72734FF8-5FEA-43D1-9A8E-277484ABACFB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhiteLabel.ServiceMeta.WebApi", "src\Application\WhiteLabel.ServiceMeta.WebApi\WhiteLabel.ServiceMeta.WebApi.csproj", "{72734FF8-5FEA-43D1-9A8E-277484ABACFB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AspireHostIntegration", "AspireHostIntegration", "{E5BDA931-169C-4D16-999A-375B4EC1D0CD}"
 	ProjectSection(SolutionItems) = preProject
