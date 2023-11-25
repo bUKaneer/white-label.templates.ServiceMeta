@@ -30,5 +30,5 @@ Set-Location $aspireSolutionFolder
 
 # dotnet sln add mylib1\mylib1.csproj --solution-folder mylibs
 
-Start-Process -NoNewWindow $DotNetExecutablePath -ArgumentList "sln","add", "$UserInterfaceServerProjectFolder\UserInterface.csproj", "--solution-folder", "Services\$ProjectName\UserInterface"
-Start-Process -NoNewWindow $DotNetExecutablePath -ArgumentList "sln","add", "$ApiProjectFolder\WebApi.csproj", "--solution-folder", "Services\$ProjectName\WebApi"
+Start-Process -NoNewWindow $DotNetExecutablePath -ArgumentList "sln","add", "$UserInterfaceServerProjectFolder\UserInterface.csproj", "--solution-folder", "Services\$($ProjectName)UserInterface"
+Start-Process -NoNewWindow $DotNetExecutablePath -ArgumentList "sln","add", "$ApiProjectFolder\WebApi.csproj", "--solution-folder", "Services\$($ProjectName)WebApi"
