@@ -5,29 +5,31 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{3F3705B1-D092-4DB5-B621-3364BFEC3CE8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "src\Domain\Domain.csproj", "{5338C008-1440-4DF2-BE7C-7761F20288D3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "src\Domain\Domain.csproj", "{5338C008-1440-4DF2-BE7C-7761F20288D3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{B55874DC-5A8A-49CA-AADC-9E60432ED38F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UserInterface", "UserInterface", "{4AB90273-DD35-439E-AE5A-0321FB374247}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserInterface.Client", "src\Application\UserInterface\UserInterface.Client\UserInterface.Client.csproj", "{81E7F327-476E-4788-94B0-E4DB355FAA81}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserInterface.Client", "src\Application\UserInterface\UserInterface.Client\UserInterface.Client.csproj", "{81E7F327-476E-4788-94B0-E4DB355FAA81}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserInterface", "src\Application\UserInterface\UserInterface\UserInterface.csproj", "{C77E6EB8-FD46-4F50-A5E0-C0CD1AA006FA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserInterface", "src\Application\UserInterface\UserInterface\UserInterface.csproj", "{C77E6EB8-FD46-4F50-A5E0-C0CD1AA006FA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "src\Infrastructure\Infrastructure.csproj", "{5429AE37-8D87-47E0-B698-6E905EB201C9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "src\Infrastructure\Infrastructure.csproj", "{5429AE37-8D87-47E0-B698-6E905EB201C9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UseCases", "src\UseCases\UseCases.csproj", "{8ECFBFE5-F088-4004-9559-DCE38C289E14}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UseCases", "src\UseCases\UseCases.csproj", "{8ECFBFE5-F088-4004-9559-DCE38C289E14}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi", "src\Application\WebApi\WebApi.csproj", "{72734FF8-5FEA-43D1-9A8E-277484ABACFB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi", "src\Application\WebApi\WebApi.csproj", "{72734FF8-5FEA-43D1-9A8E-277484ABACFB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AspireHostIntegration", "AspireHostIntegration", "{E5BDA931-169C-4D16-999A-375B4EC1D0CD}"
+	ProjectSection(SolutionItems) = preProject
+		RUNME.ps1 = RUNME.ps1
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{5338C008-1440-4DF2-BE7C-7761F20288D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -55,6 +57,9 @@ Global
 		{72734FF8-5FEA-43D1-9A8E-277484ABACFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{72734FF8-5FEA-43D1-9A8E-277484ABACFB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{5338C008-1440-4DF2-BE7C-7761F20288D3} = {3F3705B1-D092-4DB5-B621-3364BFEC3CE8}
 		{B55874DC-5A8A-49CA-AADC-9E60432ED38F} = {3F3705B1-D092-4DB5-B621-3364BFEC3CE8}
@@ -64,5 +69,8 @@ Global
 		{5429AE37-8D87-47E0-B698-6E905EB201C9} = {3F3705B1-D092-4DB5-B621-3364BFEC3CE8}
 		{8ECFBFE5-F088-4004-9559-DCE38C289E14} = {3F3705B1-D092-4DB5-B621-3364BFEC3CE8}
 		{72734FF8-5FEA-43D1-9A8E-277484ABACFB} = {B55874DC-5A8A-49CA-AADC-9E60432ED38F}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {87AA22D0-5C1F-4E7E-8AB6-747CB209FC41}
 	EndGlobalSection
 EndGlobal
