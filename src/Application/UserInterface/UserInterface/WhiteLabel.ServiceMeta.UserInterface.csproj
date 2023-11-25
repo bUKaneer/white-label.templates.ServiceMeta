@@ -7,13 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\UserInterface.Client\UserInterface.Client.csproj" />
+    <ProjectReference Include="..\UserInterface.Client\WhiteLabel.ServiceMeta.UserInterface.Client.csproj" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Domain\Domain.csproj" />
-    <ProjectReference Include="..\..\..\Infrastructure\Infrastructure.csproj" />
+    <ProjectReference Include="..\..\..\Domain\WhiteLabel.ServiceMeta.Domain.csproj" />
+    <ProjectReference Include="..\..\..\Infrastructure\WhiteLabel.ServiceMeta.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
