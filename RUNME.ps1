@@ -40,7 +40,7 @@ Start-Process -Wait -NoNewWindow $DotNetExecutablePath -ArgumentList "sln", "add
 
 $UserInterfaceClientProjectFilePath = "$UserInterfaceClientProjectFolder\$($ProjectName).UserInterface.Client.csproj"
 
-Start-Process -Wait -NoNewWindow $DotNetExecutablePath -ArgumentList "sln", "add", $UserInterfaceServerProjectFilePath, "--solution-folder", "Services\$($ProjectName)"
+Start-Process -Wait -NoNewWindow $DotNetExecutablePath -ArgumentList "sln", "add", $UserInterfaceClientProjectFilePath, "--solution-folder", "Services\$($ProjectName)"
 
 $WebApiProjectFilePath = "$ApiProjectFolder\$($ProjectName).WebApi.csproj"
 
@@ -54,7 +54,7 @@ $InfrastructureProjectFilePath = "$InfrastructureProjectFolder\$($ProjectName).I
 
 Start-Process -Wait -NoNewWindow $DotNetExecutablePath -ArgumentList "sln", "add", $InfrastructureProjectFilePath, "--solution-folder", "Services\$($ProjectName)"
 
-$UseCasesProjectFilePath = "$UseCasesProjectFolder\$($ProjectName).UseCases.csproj", "--solution-folder"
+$UseCasesProjectFilePath = "$UseCasesProjectFolder\$($ProjectName).UseCases.csproj"
 
 Start-Process -Wait -NoNewWindow $DotNetExecutablePath -ArgumentList "sln", "add", $UseCasesProjectFilePath, "--solution-folder", "Services\$($ProjectName)"
 
@@ -70,9 +70,9 @@ Start-Process -Wait -NoNewWindow $DotNetExecutablePath -ArgumentList "add", "ref
 
 Start-Process -Wait -NoNewWindow $DotNetExecutablePath -ArgumentList "add", "reference", $WebApiProjectFilePath
 
-Start-Process -Wait -NoNewWindow $DotNetExecutablePath -ArgumentList "add", "reference", $DomainProjectFilePath
+# Start-Process -Wait -NoNewWindow $DotNetExecutablePath -ArgumentList "add", "reference", $DomainProjectFilePath
 
-Start-Process -Wait -NoNewWindow $DotNetExecutablePath -ArgumentList "add", "reference", $InfrastructureProjectFilePath
+# Start-Process -Wait -NoNewWindow $DotNetExecutablePath -ArgumentList "add", "reference", $InfrastructureProjectFilePath
 
-Start-Process -Wait -NoNewWindow $DotNetExecutablePath -ArgumentList "add", "reference", $UseCasesProjectFilePath
+# Start-Process -Wait -NoNewWindow $DotNetExecutablePath -ArgumentList "add", "reference", $UseCasesProjectFilePath
 
