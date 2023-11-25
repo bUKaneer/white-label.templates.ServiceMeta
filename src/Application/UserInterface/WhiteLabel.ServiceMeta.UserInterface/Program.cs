@@ -1,5 +1,5 @@
-using UserInterface.Client.Pages;
-using UserInterface.Components;
+using WhiteLabel.ServiceMeta.UserInterface.Client.Pages;
+using WhiteLabel.ServiceMeta.UserInterface.Components;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +12,9 @@ builder.Services.AddRazorComponents()
     .AddInteractiveWebAssemblyComponents();
 
 var app = builder.Build();
+
+// Add service defaults & Aspire components.
+app.MapDefaultEndpoints();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -34,8 +37,5 @@ app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode()
     .AddInteractiveWebAssemblyRenderMode()
     .AddAdditionalAssemblies(typeof(Counter).Assembly);
-
-// Add service defaults & Aspire components.
-app.MapDefaultEndpoints();
 
 app.Run();
