@@ -10,7 +10,7 @@
     },
     "identity": "WhiteLabel.CleanArchitecture.ServiceMeta.Template",
     "name": "WhiteLabel Clean Architecture Service Meta Template",
-    "shortName": "whitelabel-servicemeta",
+    "shortName": "whitelabel-service",
     "sourceName": "WhiteLabel.ServiceMeta",
     "preferNameDirectory": true
-    }
+}
