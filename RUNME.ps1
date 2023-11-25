@@ -1,4 +1,4 @@
-param([String]$aspireSolutionFolder, [String]$serviceDefaultsPackage)
+param([String]$aspireProjectName, [String]$aspireSolutionFolder, [String]$serviceDefaultsPackage)
 
 # Welcome 
 Clear-Host
@@ -60,7 +60,7 @@ Start-Process -Wait -NoNewWindow $DotNetExecutablePath -ArgumentList "sln", "add
 
 # Add Reference from UserInterface and WebApi to App.Host Project
 
-$AspireAppHostFolder = "$aspireSolutionFolder\$($ProjectName).Aspire.AppHost"
+$AspireAppHostFolder = "$aspireSolutionFolder\$($aspireProjectName).AppHost"
 
 Set-Location $AspireAppHostFolder
 
