@@ -56,11 +56,11 @@ Start-Process -Wait -NoNewWindow $DotNetExecutablePath -ArgumentList "sln", "add
 
 $UseCasesProjectFilePath = "$UseCasesProjectFolder\$($ProjectName).UseCases.csproj", "--solution-folder"
 
-Start-Process -Wait -NoNewWindow $DotNetExecutablePath -ArgumentList "sln", "add", $UseCasesProjectFilePath, "Services\$($ProjectName)"
+Start-Process -Wait -NoNewWindow $DotNetExecutablePath -ArgumentList "sln", "add", $UseCasesProjectFilePath, "--solution-folder", "Services\$($ProjectName)"
 
 # Add Reference from UserInterface and WebApi to App.Host Project
 
-$AspireAppHostFolder = "$aspireSolutionFolder\AppHost"
+$AspireAppHostFolder = "$aspireSolutionFolder\$($ProjectName).Aspire.AppHost"
 
 Set-Location $AspireAppHostFolder
 
