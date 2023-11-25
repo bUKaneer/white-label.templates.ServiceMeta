@@ -3,6 +3,9 @@ using UserInterface.Components;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Add service defaults & Aspire components.
+builder.AddServiceDefaults();
+
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents()
@@ -31,5 +34,8 @@ app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode()
     .AddInteractiveWebAssemblyRenderMode()
     .AddAdditionalAssemblies(typeof(Counter).Assembly);
+
+// Add service defaults & Aspire components.
+app.MapDefaultEndpoints();
 
 app.Run();
