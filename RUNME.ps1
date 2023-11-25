@@ -13,7 +13,7 @@ $SolutionRootFolder = Get-Location
 $UserInterfaceServerProjectFolder = "$SolutionRootFolder\src\Application\UserInterface\UserInterface"
 $ApiProjectFolder = "$SolutionRootFolder\src\Application\WebApi"
 
-# Add Service Defaults Reference 
+# Add Service Defaults Reference to User Interface and Api 
 
 Set-Location $UserInterfaceServerProjectFolder 
 
@@ -23,3 +23,4 @@ Set-Location $ApiProjectFolder
 
 Start-Process -NoNewWindow $DotNetExecutablePath -ArgumentList "add", ".\WebApi.csproj", "package", $serviceDefaultsPackage
 
+# Setup Service in Aspire Host 
