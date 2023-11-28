@@ -11,6 +11,44 @@
   "shortName": "whitelabel-service",
   "sourceName": "WhiteLabel.ServiceMeta",
   "preferNameDirectory": true,
+  "symbols": {
+    "UserInterfaceHttpPort": {
+      "type": "generated",
+      "generator": "port",
+      "parameters": {
+        "low": 10000,
+        "high": 50000
+      },
+      "replaces": "USERINTERFACE_PORT"
+    },
+    "UserInterfaceHttpsPort": {
+      "type": "generated",
+      "generator": "port",
+      "parameters": {
+        "low": 10000,
+        "high": 50000
+      },
+      "replaces": "USERINTERFACE_HTTPS_PORT"
+    },
+    "ApiHttpPort": {
+      "type": "generated",
+      "generator": "port",
+      "parameters": {
+        "low": 10000,
+        "high": 50000
+      },
+      "replaces": "API_PORT"
+    },
+    "ApiHttpsPort": {
+      "type": "generated",
+      "generator": "port",
+      "parameters": {
+        "low": 10000,
+        "high": 50000
+      },
+      "replaces": "API_HTTPS_PORT"
+    }
+  },
   "sources": [
     {
       "modifiers": [
