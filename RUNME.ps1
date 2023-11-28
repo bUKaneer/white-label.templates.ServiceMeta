@@ -18,7 +18,7 @@ $UseCasesProjectFolder = "$SolutionRootFolder\src\$($ProjectName).UseCases"
 
 # Add Nuget Configuration so Service Defaults are findble
 
-$NugetConfigFilePath = "$aspireSolutionFolder\$aspireProjectName.Aspire.AppHost\nuget.config"
+$NugetConfigFilePath = "$aspireSolutionFolder\$aspireProjectName.AppHost\nuget.config"
 
 Copy-Item -Path $NugetConfigFilePath -Destination $UserInterfaceServerProjectFolder
 Copy-Item -Path $NugetConfigFilePath -Destination $ApiProjectFolder
