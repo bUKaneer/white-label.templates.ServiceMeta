@@ -6,8 +6,6 @@ $ProjectName = Split-Path -Path (Get-Location) -Leaf
 
 # Set location for required executables
 $DotNetExecutablePath = "C:\Program Files\dotnet\dotnet.exe"
-$GitExecutablePath = "C:\Program Files\Git\bin\git.exe"
-$DockerExecutablePath = "C:\Program Files\Docker\Docker\resources\bin\docker.exe"
 
 # Set Project Folders 
 $SolutionRootFolder = Get-Location 
@@ -17,6 +15,13 @@ $ApiProjectFolder = "$SolutionRootFolder\src\Application\$($ProjectName).WebApi"
 $DomainProjectFolder = "$SolutionRootFolder\src\$($ProjectName).Domain"
 $InfrastructureProjectFolder = "$SolutionRootFolder\src\$($ProjectName).Infrastructure"
 $UseCasesProjectFolder = "$SolutionRootFolder\src\$($ProjectName).UseCases"
+
+# Add Nuget Configuration so Service Defaults are findble
+
+$NugetConfigFilePath = "$aspireSolutionFolder\$aspireProjectName.Aspire.AppHost\nuget.config"
+
+Copy-Item -Path $NugetConfigFilePath -Destination $UserInterfaceServerProjectFolder
+Copy-Item -Path $NugetConfigFilePath -Destination $ApiProjectFolder
 
 # Add Service Defaults Reference to User Interface and Api 
 
