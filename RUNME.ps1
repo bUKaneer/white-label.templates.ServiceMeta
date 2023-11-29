@@ -1,4 +1,4 @@
-param([String]$aspireProjectName = "WhiteLabel.Aspire", [String]$aspireSolutionFolder = "C:\WhiteLabel\WhiteLabel\WhiteLabel.Aspire", [String]$packagesAndContainersSolutionFolder = "C:\WhiteLabel\WhiteLabel\WhiteLabel.PackagesAndContainers")
+param([String]$projectNameBase = "WhiteLabel", [String]$aspireProjectName = "WhiteLabel.Aspire", [String]$aspireSolutionFolder = "C:\WhiteLabel\WhiteLabel\WhiteLabel.Aspire", [String]$packagesAndContainersSolutionFolder = "C:\WhiteLabel\WhiteLabel\WhiteLabel.PackagesAndContainers")
 
 # Welcome 
 Clear-Host
@@ -128,7 +128,7 @@ $Process.WaitForExit()
 
 # Add Shared Kernel to All Projects
 
-$SharedKernelPackageName = "$ProjectName.SharedKernel"
+$SharedKernelPackageName = "$projectNameBase.SharedKernel"
 
 Set-Location $UserInterfaceServerProjectFolder
 $Process = Start-Process -PassThru -NoNewWindow $DotNetExecutablePath -ArgumentList "add", "package", $SharedKernelPackageName
