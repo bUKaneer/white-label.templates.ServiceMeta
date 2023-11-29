@@ -1,4 +1,4 @@
-param([String]$projectNameBase = "WhiteLabel", [String]$aspireProjectName = "WhiteLabel.Aspire", [String]$aspireSolutionFolder = "C:\WhiteLabel\WhiteLabel\WhiteLabel.Aspire", [String]$packagesAndContainersSolutionFolder = "C:\WhiteLabel\WhiteLabel\WhiteLabel.PackagesAndContainers")
+param([String]$projectNameBase = "WhiteLabel", [String]$aspireProjectName = "WhiteLabel.Aspire", [String]$aspireSolutionFolder = "C:\WhiteLabel\WhiteLabel\WhiteLabel.Aspire", [String]$serviceDefaultsPackage = "WhiteLabel.Aspire.ServiceDefaults", [String]$packagesAndContainersSolutionFolder = "C:\WhiteLabel\WhiteLabel\WhiteLabel.PackagesAndContainers")
 
 # Welcome 
 Clear-Host
