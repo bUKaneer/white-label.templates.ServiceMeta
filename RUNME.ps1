@@ -27,12 +27,12 @@ Copy-Item -Path $NugetConfigFilePath -Destination $ApiProjectFolder
 
 Set-Location $UserInterfaceServerProjectFolder 
 
-$Process = Start-Process -PassThru -NoNewWindow $DotNetExecutablePath -ArgumentList "add", ".\$($ProjectName).UserInterface.csproj", "package", $serviceDefaultsPackage
+$Process = Start-Process -PassThru -NoNewWindow $DotNetExecutablePath -ArgumentList "add", "package", $serviceDefaultsPackage
 $Process.WaitForExit()
 
 Set-Location $ApiProjectFolder
 
-$Process = Start-Process -PassThru -NoNewWindow $DotNetExecutablePath -ArgumentList "add", ".\$($ProjectName).WebApi.csproj", "package", $serviceDefaultsPackage
+$Process = Start-Process -PassThru -NoNewWindow $DotNetExecutablePath -ArgumentList "add", "package", $serviceDefaultsPackage
 $Process.WaitForExit()
 
 # Add Shared Kernel to All Projects
@@ -40,27 +40,27 @@ $Process.WaitForExit()
 $SharedKernelPackageName = "$projectNameBase.SharedKernel"
 
 Set-Location $UserInterfaceServerProjectFolder
-$Process = Start-Process -PassThru -NoNewWindow $DotNetExecutablePath -ArgumentList "add", ".\$($ProjectName).UserInterface.csproj", "package", $SharedKernelPackageName
+$Process = Start-Process -PassThru -NoNewWindow $DotNetExecutablePath -ArgumentList "add", "package", $SharedKernelPackageName
 $Process.WaitForExit()
 
 Set-Location $UserInterfaceClientProjectFolder
-$Process = Start-Process -PassThru -NoNewWindow $DotNetExecutablePath -ArgumentList "add", ".\$($ProjectName).UserInterface.Client.csproj", "package", $SharedKernelPackageName
+$Process = Start-Process -PassThru -NoNewWindow $DotNetExecutablePath -ArgumentList "add", "package", $SharedKernelPackageName
 $Process.WaitForExit()
 
 Set-Location $ApiProjectFolder 
-$Process = Start-Process -PassThru -NoNewWindow $DotNetExecutablePath -ArgumentList "add", ".\$($ProjectName).WebApi.csproj", "package", $SharedKernelPackageName
+$Process = Start-Process -PassThru -NoNewWindow $DotNetExecutablePath -ArgumentList "add", "package", $SharedKernelPackageName
 $Process.WaitForExit()
 
 Set-Location $DomainProjectFolder 
-$Process = Start-Process -PassThru -NoNewWindow $DotNetExecutablePath -ArgumentList "add", ".\$($ProjectName).Domain.csproj", "package", $SharedKernelPackageName
+$Process = Start-Process -PassThru -NoNewWindow $DotNetExecutablePath -ArgumentList "add", "package", $SharedKernelPackageName
 $Process.WaitForExit()
 
 Set-Location $InfrastructureProjectFolder 
-$Process = Start-Process -PassThru -NoNewWindow $DotNetExecutablePath -ArgumentList "add", ".\$($ProjectName).Infrastructure.csproj", "package", $SharedKernelPackageName
+$Process = Start-Process -PassThru -NoNewWindow $DotNetExecutablePath -ArgumentList "add", "package", $SharedKernelPackageName
 $Process.WaitForExit()
 
 Set-Location $UseCasesProjectFolder 
-$Process = Start-Process -PassThru -NoNewWindow $DotNetExecutablePath -ArgumentList "add", ".\$($ProjectName).UseCases.csproj", "package", $SharedKernelPackageName
+$Process = Start-Process -PassThru -NoNewWindow $DotNetExecutablePath -ArgumentList "add", "package", $SharedKernelPackageName
 $Process.WaitForExit()
 
 
