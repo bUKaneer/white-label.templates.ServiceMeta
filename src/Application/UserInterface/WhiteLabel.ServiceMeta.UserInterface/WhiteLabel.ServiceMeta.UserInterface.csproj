@@ -10,4 +10,8 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\WhiteLabel.ServiceMeta.UserInterface.Client\WhiteLabel.ServiceMeta.UserInterface.Client.csproj" />
+  </ItemGroup>
+
 </Project>
