@@ -13,9 +13,4 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\WhiteLabel.ServiceMeta.Domain\WhiteLabel.ServiceMeta.Domain.csproj" />
-    <ProjectReference Include="..\..\WhiteLabel.ServiceMeta.Infrastructure\WhiteLabel.ServiceMeta.Infrastructure.csproj" />
-  </ItemGroup>
-
 </Project>
