@@ -1,4 +1,4 @@
-param([String]$aspireProjectName, [String]$aspireSolutionFolder, [String]$serviceDefaultsPackage)
+param([String]$aspireProjectName = "WhiteLabel.Aspire", [String]$aspireSolutionFolder = "C:\WhiteLabel\WhiteLabel\WhiteLabel.Aspire", [String]$packagesAndContainersSolutionFolder = "C:\WhiteLabel\WhiteLabel\WhiteLabel.Projects\WhiteLabel.PackagesAndContainers")
 
 # Welcome 
 Clear-Host
@@ -15,6 +15,24 @@ $ApiProjectFolder = "$SolutionRootFolder\src\Application\$($ProjectName).WebApi"
 $DomainProjectFolder = "$SolutionRootFolder\src\$($ProjectName).Domain"
 $InfrastructureProjectFolder = "$SolutionRootFolder\src\$($ProjectName).Infrastructure"
 $UseCasesProjectFolder = "$SolutionRootFolder\src\$($ProjectName).UseCases"
+
+# Pack and Push Service Projects to Baget
+
+$PortConfigPath = "$packagesAndContainersSolutionFolder\ports.config.json"
+$PortConfigJson = Get-Content $PortConfigPath | Out-String | ConvertFrom-Json
+$PackageSourcePort = $PortConfigJson.PackagesUserInterfacePort
+
+Set-Location $DomainProjectFolder
+Start-Process -NoNewWindow -Wait $DotNetExecutablePath -ArgumentList "pack", "--output nupkgs"
+Start-Process -NoNewWindow -Wait $DotNetExecutablePath -ArgumentList "nuget", "push", "./nupkgs/$ProjectName.Domain.1.0.0.nupkg", "-s http://localhost:$PackageSourcePort/v3/index.json", "-k 8B516EDB-7523-476E-AF43-79CCA054CE9F"
+
+Set-Location $InfrastructureProjectFolder
+Start-Process -NoNewWindow -Wait $DotNetExecutablePath -ArgumentList "pack", "--output nupkgs"
+Start-Process -NoNewWindow -Wait $DotNetExecutablePath -ArgumentList "nuget", "push", "./nupkgs/$ProjectName.Infrastructure.1.0.0.nupkg", "-s http://localhost:$PackageSourcePort/v3/index.json", "-k 8B516EDB-7523-476E-AF43-79CCA054CE9F"
+
+Set-Location $UseCasesProjectFolder
+Start-Process -NoNewWindow -Wait $DotNetExecutablePath -ArgumentList "pack", "--output nupkgs"
+Start-Process -NoNewWindow -Wait $DotNetExecutablePath -ArgumentList "nuget", "push", "./nupkgs/$ProjectName.UseCases.1.0.0.nupkg", "-s http://localhost:$PackageSourcePort/v3/index.json", "-k 8B516EDB-7523-476E-AF43-79CCA054CE9F"
 
 # Add Nuget Configuration so Service Defaults are findble
 
@@ -51,18 +69,6 @@ $WebApiProjectFilePath = "$ApiProjectFolder\$($ProjectName).WebApi.csproj"
 
 Start-Process -Wait -NoNewWindow $DotNetExecutablePath -ArgumentList "sln", "add", $WebApiProjectFilePath, "--solution-folder", "Services\$($ProjectName)"
 
-$DomainProjectFilePath = "$DomainProjectFolder\$($ProjectName).Domain.csproj"
-
-Start-Process -Wait -NoNewWindow $DotNetExecutablePath -ArgumentList "sln", "add", $DomainProjectFilePath, "--solution-folder", "Services\$($ProjectName)"
-
-$InfrastructureProjectFilePath = "$InfrastructureProjectFolder\$($ProjectName).Infrastructure.csproj"
-
-Start-Process -Wait -NoNewWindow $DotNetExecutablePath -ArgumentList "sln", "add", $InfrastructureProjectFilePath, "--solution-folder", "Services\$($ProjectName)"
-
-$UseCasesProjectFilePath = "$UseCasesProjectFolder\$($ProjectName).UseCases.csproj"
-
-Start-Process -Wait -NoNewWindow $DotNetExecutablePath -ArgumentList "sln", "add", $UseCasesProjectFilePath, "--solution-folder", "Services\$($ProjectName)"
-
 # Add Reference from UserInterface and WebApi to App.Host Project
 
 $AspireAppHostFolder = "$aspireSolutionFolder\$($aspireProjectName).AppHost"
@@ -75,9 +81,4 @@ Start-Process -Wait -NoNewWindow $DotNetExecutablePath -ArgumentList "add", "ref
 
 Start-Process -Wait -NoNewWindow $DotNetExecutablePath -ArgumentList "add", "reference", $WebApiProjectFilePath
 
-# Start-Process -Wait -NoNewWindow $DotNetExecutablePath -ArgumentList "add", "reference", $DomainProjectFilePath
-
-# Start-Process -Wait -NoNewWindow $DotNetExecutablePath -ArgumentList "add", "reference", $InfrastructureProjectFilePath
-
-# Start-Process -Wait -NoNewWindow $DotNetExecutablePath -ArgumentList "add", "reference", $UseCasesProjectFilePath
 
