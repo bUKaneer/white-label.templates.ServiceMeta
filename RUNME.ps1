@@ -35,7 +35,36 @@ Set-Location $ApiProjectFolder
 $Process = Start-Process -PassThru -NoNewWindow $DotNetExecutablePath -ArgumentList "add", ".\$($ProjectName).WebApi.csproj", "package", $serviceDefaultsPackage
 $Process.WaitForExit()
 
-# Pack and Push Service Projects to Baget
+# Add Shared Kernel to All Projects
+
+$SharedKernelPackageName = "$projectNameBase.SharedKernel"
+
+Set-Location $UserInterfaceServerProjectFolder
+$Process = Start-Process -PassThru -NoNewWindow $DotNetExecutablePath -ArgumentList "add", ".\$($ProjectName).UserInterface.csproj", "package", $SharedKernelPackageName
+$Process.WaitForExit()
+
+Set-Location $UserInterfaceClientProjectFolder
+$Process = Start-Process -PassThru -NoNewWindow $DotNetExecutablePath -ArgumentList "add", ".\$($ProjectName).UserInterface.Client.csproj", "package", $SharedKernelPackageName
+$Process.WaitForExit()
+
+Set-Location $ApiProjectFolder 
+$Process = Start-Process -PassThru -NoNewWindow $DotNetExecutablePath -ArgumentList "add", ".\$($ProjectName).WebApi.csproj", "package", $SharedKernelPackageName
+$Process.WaitForExit()
+
+Set-Location $DomainProjectFolder 
+$Process = Start-Process -PassThru -NoNewWindow $DotNetExecutablePath -ArgumentList "add", ".\$($ProjectName).Domain.csproj", "package", $SharedKernelPackageName
+$Process.WaitForExit()
+
+Set-Location $InfrastructureProjectFolder 
+$Process = Start-Process -PassThru -NoNewWindow $DotNetExecutablePath -ArgumentList "add", ".\$($ProjectName).Infrastructure.csproj", "package", $SharedKernelPackageName
+$Process.WaitForExit()
+
+Set-Location $UseCasesProjectFolder 
+$Process = Start-Process -PassThru -NoNewWindow $DotNetExecutablePath -ArgumentList "add", ".\$($ProjectName).UseCases.csproj", "package", $SharedKernelPackageName
+$Process.WaitForExit()
+
+
+# Pack and Push Class Libraries to Baget
 
 $PortConfigPath = "$packagesAndContainersSolutionFolder\ports.config.json"
 $PortConfigJson = Get-Content $PortConfigPath | Out-String | ConvertFrom-Json
@@ -126,31 +155,4 @@ $Process.WaitForExit()
 $Process = Start-Process -PassThru -NoNewWindow $DotNetExecutablePath -ArgumentList "add", "package", $UseCasesPackageName
 $Process.WaitForExit()
 
-# Add Shared Kernel to All Projects
-
-$SharedKernelPackageName = "$projectNameBase.SharedKernel"
-
-Set-Location $UserInterfaceServerProjectFolder
-$Process = Start-Process -PassThru -NoNewWindow $DotNetExecutablePath -ArgumentList "add", "package", $SharedKernelPackageName
-$Process.WaitForExit()
-
-Set-Location $UserInterfaceClientProjectFolder
-$Process = Start-Process -PassThru -NoNewWindow $DotNetExecutablePath -ArgumentList "add", "package", $SharedKernelPackageName
-$Process.WaitForExit()
-
-Set-Location $ApiProjectFolder 
-$Process = Start-Process -PassThru -NoNewWindow $DotNetExecutablePath -ArgumentList "add", "package", $SharedKernelPackageName
-$Process.WaitForExit()
-
-Set-Location $DomainProjectFolder 
-$Process = Start-Process -PassThru -NoNewWindow $DotNetExecutablePath -ArgumentList "add", "package", $SharedKernelPackageName
-$Process.WaitForExit()
-
-Set-Location $InfrastructureProjectFolder 
-$Process = Start-Process -PassThru -NoNewWindow $DotNetExecutablePath -ArgumentList "add", "package", $SharedKernelPackageName
-$Process.WaitForExit()
-
-Set-Location $UseCasesProjectFolder 
-$Process = Start-Process -PassThru -NoNewWindow $DotNetExecutablePath -ArgumentList "add", "package", $SharedKernelPackageName
-$Process.WaitForExit()
 
