@@ -1,24 +1,25 @@
-param([String]$DemoProjjectNameBase = "WhiteLabel", [String]$AspireProjectName = "WhiteLabel.Aspire", [String]$AspireSolutionFolder = "C:\WhiteLabel\WhiteLabel\WhiteLabel.Aspire", [String]$ServiceDefaultsPackage = "WhiteLabel.Aspire.ServiceDefaults", [String]$PackagesAndContainersSolutionFolder = "C:\WhiteLabel\WhiteLabel\WhiteLabel.PackagesAndContainers")
+param([String]$ProjectNameBase = "WhiteLabel", [String]$AspireProjectName = "WhiteLabel.Aspire", [String]$AspireSolutionFolder = "C:\WhiteLabel\WhiteLabel\WhiteLabel.Aspire", [String]$ServiceDefaultsPackage = "WhiteLabel.Aspire.ServiceDefaults", [String]$PackagesAndContainersSolutionFolder = "C:\WhiteLabel\WhiteLabel\WhiteLabel.PackagesAndContainers")
 
 # Welcome 
 Clear-Host
-$DemoProjjectName = Split-Path -Path (Get-Location) -Leaf
+$DemoProjectName = Split-Path -Path (Get-Location) -Leaf
 
 # Set location for required executables
 $DotNetExecutablePath = "C:\Program Files\dotnet\dotnet.exe"
 
 # Set Project Folders 
 $SolutionRootFolder = Get-Location 
-$UserInterfaceServerProjectFolder = "$SolutionRootFolder\src\Application\UserInterface\$($DemoProjjectName).UserInterface"
-$UserInterfaceClientProjectFolder = "$SolutionRootFolder\src\Application\UserInterface\$($DemoProjjectName).UserInterface.Client"
-$ApiProjectFolder = "$SolutionRootFolder\src\Application\$($DemoProjjectName).WebApi"
-$DomainProjectFolder = "$SolutionRootFolder\src\$($DemoProjjectName).Domain"
-$InfrastructureProjectFolder = "$SolutionRootFolder\src\$($DemoProjjectName).Infrastructure"
-$UseCasesProjectFolder = "$SolutionRootFolder\src\$($DemoProjjectName).UseCases"
+$UserInterfaceServerProjectFolder = "$SolutionRootFolder\src\Application\UserInterface\$($DemoProjectName).UserInterface"
+$UserInterfaceClientProjectFolder = "$SolutionRootFolder\src\Application\UserInterface\$($DemoProjectName).UserInterface.Client"
+$ApiProjectFolder = "$SolutionRootFolder\src\Application\$($DemoProjectName).WebApi"
+$DomainProjectFolder = "$SolutionRootFolder\src\$($DemoProjectName).Domain"
+$InfrastructureProjectFolder = "$SolutionRootFolder\src\$($DemoProjectName).Infrastructure"
+$UseCasesProjectFolder = "$SolutionRootFolder\src\$($DemoProjectName).UseCases"
 
 # Add Nuget Configuration so Service Defaults are findble
 
 $NugetConfigFilePath = "$AspireSolutionFolder\$AspireProjectName.AppHost\nuget.config"
+#$ConfigurationFolder = "$ProjectFolder\Configuration"
 
 Copy-Item -Path $NugetConfigFilePath -Destination $UserInterfaceServerProjectFolder
 Copy-Item -Path $NugetConfigFilePath -Destination $ApiProjectFolder
@@ -75,7 +76,7 @@ Set-Location $DomainProjectFolder
 $Process = Start-Process -NoNewWindow -PassThru $DotNetExecutablePath -ArgumentList "pack", "--output nupkgs"
 $Process.WaitForExit()
 
-$Process = Start-Process -NoNewWindow -PassThru $DotNetExecutablePath -ArgumentList "nuget", "push", "./nupkgs/$DemoProjjectName.Domain.1.0.0.nupkg", "-s http://localhost:$PackageSourcePort/v3/index.json", "-k 8B516EDB-7523-476E-AF43-79CCA054CE9F"
+$Process = Start-Process -NoNewWindow -PassThru $DotNetExecutablePath -ArgumentList "nuget", "push", "./nupkgs/$DemoProjectName.Domain.1.0.0.nupkg", "-s http://localhost:$PackageSourcePort/v3/index.json", "-k 8B516EDB-7523-476E-AF43-79CCA054CE9F"
 $Process.WaitForExit()
 
 Set-Location $InfrastructureProjectFolder
@@ -83,7 +84,7 @@ Set-Location $InfrastructureProjectFolder
 $Process = Start-Process -NoNewWindow -PassThru $DotNetExecutablePath -ArgumentList "pack", "--output nupkgs"
 $Process.WaitForExit()
 
-$Process = Start-Process -NoNewWindow -PassThru $DotNetExecutablePath -ArgumentList "nuget", "push", "./nupkgs/$DemoProjjectName.Infrastructure.1.0.0.nupkg", "-s http://localhost:$PackageSourcePort/v3/index.json", "-k 8B516EDB-7523-476E-AF43-79CCA054CE9F"
+$Process = Start-Process -NoNewWindow -PassThru $DotNetExecutablePath -ArgumentList "nuget", "push", "./nupkgs/$DemoProjectName.Infrastructure.1.0.0.nupkg", "-s http://localhost:$PackageSourcePort/v3/index.json", "-k 8B516EDB-7523-476E-AF43-79CCA054CE9F"
 $Process.WaitForExit()
 
 Set-Location $UseCasesProjectFolder
@@ -91,7 +92,7 @@ Set-Location $UseCasesProjectFolder
 $Process = Start-Process -NoNewWindow -PassThru $DotNetExecutablePath -ArgumentList "pack", "--output nupkgs"
 $Process.WaitForExit()
 
-$Process = Start-Process -NoNewWindow -PassThru $DotNetExecutablePath -ArgumentList "nuget", "push", "./nupkgs/$DemoProjjectName.UseCases.1.0.0.nupkg", "-s http://localhost:$PackageSourcePort/v3/index.json", "-k 8B516EDB-7523-476E-AF43-79CCA054CE9F"
+$Process = Start-Process -NoNewWindow -PassThru $DotNetExecutablePath -ArgumentList "nuget", "push", "./nupkgs/$DemoProjectName.UseCases.1.0.0.nupkg", "-s http://localhost:$PackageSourcePort/v3/index.json", "-k 8B516EDB-7523-476E-AF43-79CCA054CE9F"
 $Process.WaitForExit()
 
 # Setup Service in Aspire Host 
@@ -100,19 +101,19 @@ Set-Location $AspireSolutionFolder
 
 # Add Projects to Aspire Solution
 
-$UserInterfaceServerProjectFilePath = "$UserInterfaceServerProjectFolder\$($DemoProjjectName).UserInterface.csproj"
+$UserInterfaceServerProjectFilePath = "$UserInterfaceServerProjectFolder\$($DemoProjectName).UserInterface.csproj"
 
-$Process = Start-Process -PassThru -NoNewWindow $DotNetExecutablePath -ArgumentList "sln", "add", $UserInterfaceServerProjectFilePath, "--solution-folder", "Services\$($DemoProjjectName)"
+$Process = Start-Process -PassThru -NoNewWindow $DotNetExecutablePath -ArgumentList "sln", "add", $UserInterfaceServerProjectFilePath, "--solution-folder", "Services\$($DemoProjectName)"
 $Process.WaitForExit()
 
-$UserInterfaceClientProjectFilePath = "$UserInterfaceClientProjectFolder\$($DemoProjjectName).UserInterface.Client.csproj"
+$UserInterfaceClientProjectFilePath = "$UserInterfaceClientProjectFolder\$($DemoProjectName).UserInterface.Client.csproj"
 
-$Process = Start-Process -PassThru -NoNewWindow $DotNetExecutablePath -ArgumentList "sln", "add", $UserInterfaceClientProjectFilePath, "--solution-folder", "Services\$($DemoProjjectName)"
+$Process = Start-Process -PassThru -NoNewWindow $DotNetExecutablePath -ArgumentList "sln", "add", $UserInterfaceClientProjectFilePath, "--solution-folder", "Services\$($DemoProjectName)"
 $Process.WaitForExit()
 
-$WebApiProjectFilePath = "$ApiProjectFolder\$($DemoProjjectName).WebApi.csproj"
+$WebApiProjectFilePath = "$ApiProjectFolder\$($DemoProjectName).WebApi.csproj"
 
-$Process = Start-Process -PassThru -NoNewWindow $DotNetExecutablePath -ArgumentList "sln", "add", $WebApiProjectFilePath, "--solution-folder", "Services\$($DemoProjjectName)"
+$Process = Start-Process -PassThru -NoNewWindow $DotNetExecutablePath -ArgumentList "sln", "add", $WebApiProjectFilePath, "--solution-folder", "Services\$($DemoProjectName)"
 $Process.WaitForExit()
 
 # Add Reference from UserInterface and WebApi to App.Host Project
@@ -132,9 +133,9 @@ $Process.WaitForExit()
 
 # Setup Package References for Projects
 
-$DomainPackageName = "$DemoProjjectName.Domain"
-$InfrastructurePackageName = "$DemoProjjectName.Infrastructure"
-$UseCasesPackageName = "$DemoProjjectName.UseCases"
+$DomainPackageName = "$DemoProjectName.Domain"
+$InfrastructurePackageName = "$DemoProjectName.Infrastructure"
+$UseCasesPackageName = "$DemoProjectName.UseCases"
 
 Set-Location $UserInterfaceServerProjectFolder
 
