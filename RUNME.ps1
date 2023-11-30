@@ -155,4 +155,15 @@ $Process.WaitForExit()
 $Process = Start-Process -PassThru -NoNewWindow $DotNetExecutablePath -ArgumentList "add", "package", $UseCasesPackageName
 $Process.WaitForExit()
 
+Set-Location $AspireAppHostFolder
+
+$Process = Start-Process -PassThru -NoNewWindow $DotNetExecutablePath -ArgumentList "build"
+$Process.WaitForExit()
+
+Write-Host "All done!"
+Write-Host ""
+Write-Host "Replace the code in Program.cs with the following setup."
+Write-Host @'
+
+'@
 
