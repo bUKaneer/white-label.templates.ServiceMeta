@@ -160,10 +160,26 @@ Set-Location $AspireAppHostFolder
 $Process = Start-Process -PassThru -NoNewWindow $DotNetExecutablePath -ArgumentList "build"
 $Process.WaitForExit()
 
+Write-Host ""
+Write-Host ""
+Write-Host ""
+Write-Host ""
+Write-Host ""
 Write-Host "All done!"
 Write-Host ""
 Write-Host "Replace the code in Program.cs with the following setup."
 Write-Host @'
+
+var builder = DistributedApplication.CreateBuilder(args);
+
+var apiBackendForFrontEnd = builder.AddProject<Projects.WhiteLabel_Sample_Demo_WebApi>("website-api-backend-for-frontend")
+.WithLaunchProfile("https");
+
+var websiteFrontend = builder.AddProject<Projects.WhiteLabel_Sample_Demo_UserInterface>("website-frontend")
+.WithLaunchProfile("https")
+.WithReference(apiBackendForFrontEnd);
+
+builder.Build().Run();
 
 '@
 
