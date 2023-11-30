@@ -1,4 +1,4 @@
-param([String]$projectNameBase = "WhiteLabel", [String]$aspireProjectName = "WhiteLabel.Aspire", [String]$aspireSolutionFolder = "C:\WhiteLabel\WhiteLabel\WhiteLabel.Aspire", [String]$serviceDefaultsPackage = "WhiteLabel.Aspire.ServiceDefaults", [String]$packagesAndContainersSolutionFolder = "C:\WhiteLabel\WhiteLabel\WhiteLabel.PackagesAndContainers")
+param([String]$ProjectNameBase = "WhiteLabel", [String]$AspireProjectName = "WhiteLabel.Aspire", [String]$AspireSolutionFolder = "C:\WhiteLabel\WhiteLabel\WhiteLabel.Aspire", [String]$ServiceDefaultsPackage = "WhiteLabel.Aspire.ServiceDefaults", [String]$PackagesAndContainersSolutionFolder = "C:\WhiteLabel\WhiteLabel\WhiteLabel.PackagesAndContainers")
 
 # Welcome 
 Clear-Host
@@ -18,7 +18,7 @@ $UseCasesProjectFolder = "$SolutionRootFolder\src\$($ProjectName).UseCases"
 
 # Add Nuget Configuration so Service Defaults are findble
 
-$NugetConfigFilePath = "$aspireSolutionFolder\$aspireProjectName.AppHost\nuget.config"
+$NugetConfigFilePath = "$AspireSolutionFolder\$AspireProjectName.AppHost\nuget.config"
 
 Copy-Item -Path $NugetConfigFilePath -Destination $UserInterfaceServerProjectFolder
 Copy-Item -Path $NugetConfigFilePath -Destination $ApiProjectFolder
@@ -27,17 +27,17 @@ Copy-Item -Path $NugetConfigFilePath -Destination $ApiProjectFolder
 
 Set-Location $UserInterfaceServerProjectFolder 
 
-$Process = Start-Process -PassThru -NoNewWindow $DotNetExecutablePath -ArgumentList "add", "package", $serviceDefaultsPackage
+$Process = Start-Process -PassThru -NoNewWindow $DotNetExecutablePath -ArgumentList "add", "package", $ServiceDefaultsPackage
 $Process.WaitForExit()
 
 Set-Location $ApiProjectFolder
 
-$Process = Start-Process -PassThru -NoNewWindow $DotNetExecutablePath -ArgumentList "add", "package", $serviceDefaultsPackage
+$Process = Start-Process -PassThru -NoNewWindow $DotNetExecutablePath -ArgumentList "add", "package", $ServiceDefaultsPackage
 $Process.WaitForExit()
 
 # Add Shared Kernel to All Projects
 
-$SharedKernelPackageName = "$projectNameBase.SharedKernel"
+$SharedKernelPackageName = "$ProjectNameBase.SharedKernel"
 
 Set-Location $UserInterfaceServerProjectFolder
 $Process = Start-Process -PassThru -NoNewWindow $DotNetExecutablePath -ArgumentList "add", "package", $SharedKernelPackageName
@@ -66,7 +66,7 @@ $Process.WaitForExit()
 
 # Pack and Push Class Libraries to Baget
 
-$PortConfigPath = "$packagesAndContainersSolutionFolder\ports.config.json"
+$PortConfigPath = "$PackagesAndContainersSolutionFolder\ports.config.json"
 $PortConfigJson = Get-Content $PortConfigPath | Out-String | ConvertFrom-Json
 $PackageSourcePort = $PortConfigJson.PackagesUserInterfacePort
 
@@ -96,7 +96,7 @@ $Process.WaitForExit()
 
 # Setup Service in Aspire Host 
 
-Set-Location $aspireSolutionFolder
+Set-Location $AspireSolutionFolder
 
 # Add Projects to Aspire Solution
 
@@ -117,7 +117,7 @@ $Process.WaitForExit()
 
 # Add Reference from UserInterface and WebApi to App.Host Project
 
-$AspireAppHostFolder = "$aspireSolutionFolder\$($aspireProjectName).AppHost"
+$AspireAppHostFolder = "$AspireSolutionFolder\$($AspireProjectName).AppHost"
 
 Set-Location $AspireAppHostFolder
 
