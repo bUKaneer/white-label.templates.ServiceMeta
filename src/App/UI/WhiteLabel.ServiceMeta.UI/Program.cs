@@ -1,5 +1,5 @@
-using WhiteLabel.ServiceMeta.UserInterface.Client.Pages;
-using WhiteLabel.ServiceMeta.UserInterface.Components;
+using WhiteLabel.ServiceMeta.UI.Client.Pages;
+using WhiteLabel.ServiceMeta.UI.Components;
 
 var builder = WebApplication.CreateBuilder(args);
 

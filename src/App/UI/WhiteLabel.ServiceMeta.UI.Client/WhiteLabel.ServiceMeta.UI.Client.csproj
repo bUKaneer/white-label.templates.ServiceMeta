@@ -6,7 +6,7 @@
     <Nullable>enable</Nullable>
     <NoDefaultLaunchSettingsFile>true</NoDefaultLaunchSettingsFile>
     <StaticWebAssetProjectMode>Default</StaticWebAssetProjectMode>
-    <StaticWebAssetBasePath>WhiteLabel.ServiceMeta.UserInterface.Client</StaticWebAssetBasePath>
+    <StaticWebAssetBasePath>WhiteLabel.ServiceMeta.UI.Client</StaticWebAssetBasePath>
   </PropertyGroup>
 
   <ItemGroup>
