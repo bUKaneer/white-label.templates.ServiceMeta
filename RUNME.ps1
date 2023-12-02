@@ -9,9 +9,9 @@ $DotNetExecutablePath = "C:\Program Files\dotnet\dotnet.exe"
 
 # Set Project Folders 
 $SolutionRootFolder = Get-Location 
-$UserInterfaceServerProjectFolder = "$SolutionRootFolder\src\Application\UserInterface\$($DemoProjectName).UserInterface"
-$UserInterfaceClientProjectFolder = "$SolutionRootFolder\src\Application\UserInterface\$($DemoProjectName).UserInterface.Client"
-$ApiProjectFolder = "$SolutionRootFolder\src\Application\$($DemoProjectName).WebApi"
+$UserInterfaceServerProjectFolder = "$SolutionRootFolder\src\App\UI\$($DemoProjectName).UI"
+$UserInterfaceClientProjectFolder = "$SolutionRootFolder\src\App\UI\$($DemoProjectName).UI.Client"
+$ApiProjectFolder = "$SolutionRootFolder\src\App\$($DemoProjectName).WebApi"
 $DomainProjectFolder = "$SolutionRootFolder\src\$($DemoProjectName).Domain"
 $InfrastructureProjectFolder = "$SolutionRootFolder\src\$($DemoProjectName).Infrastructure"
 $UseCasesProjectFolder = "$SolutionRootFolder\src\$($DemoProjectName).UseCases"
@@ -101,12 +101,12 @@ Set-Location $AspireSolutionFolder
 
 # Add Projects to Aspire Solution
 
-$UserInterfaceServerProjectFilePath = "$UserInterfaceServerProjectFolder\$($DemoProjectName).UserInterface.csproj"
+$UserInterfaceServerProjectFilePath = "$UserInterfaceServerProjectFolder\$($DemoProjectName).UI.csproj"
 
 $Process = Start-Process -PassThru -NoNewWindow $DotNetExecutablePath -ArgumentList "sln", "add", $UserInterfaceServerProjectFilePath, "--solution-folder", "Services\$($DemoProjectName)"
 $Process.WaitForExit()
 
-$UserInterfaceClientProjectFilePath = "$UserInterfaceClientProjectFolder\$($DemoProjectName).UserInterface.Client.csproj"
+$UserInterfaceClientProjectFilePath = "$UserInterfaceClientProjectFolder\$($DemoProjectName).UI.Client.csproj"
 
 $Process = Start-Process -PassThru -NoNewWindow $DotNetExecutablePath -ArgumentList "sln", "add", $UserInterfaceClientProjectFilePath, "--solution-folder", "Services\$($DemoProjectName)"
 $Process.WaitForExit()
@@ -165,18 +165,18 @@ Write-Host ""
 Write-Host ""
 Write-Host ""
 Write-Host ""
-Write-Host ""
-Write-Host "All done!"
-Write-Host ""
-Write-Host "Replace the code in Program.cs with the following setup."
 Write-Host @'
+All done!
+
+Replace the code in Program.cs with the following setup.
+
 
 var builder = DistributedApplication.CreateBuilder(args);
 
-var apiBackendForFrontEnd = builder.AddProject<Projects.WhiteLabel_Sample_Demo_WebApi>("website-api-backend-for-frontend")
+var apiBackendForFrontEnd = builder.AddProject<Projects.$ProjectName_Sample_Demo_WebApi>("website-api-backend-for-frontend")
 .WithLaunchProfile("https");
 
-var websiteFrontend = builder.AddProject<Projects.WhiteLabel_Sample_Demo_UserInterface>("website-frontend")
+var websiteFrontend = builder.AddProject<Projects.$ProjectName_Sample_Demo_UserInterface>("website-frontend")
 .WithLaunchProfile("https")
 .WithReference(apiBackendForFrontEnd);
 
