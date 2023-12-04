@@ -15,6 +15,7 @@ $DotNetExecutablePath = "C:\Program Files\dotnet\dotnet.exe"
 
 # Set Project Folders 
 $SolutionRootFolder = Get-Location 
+$UserInterfaceProjectFolder = "$SolutionRootFolder\src\App\UI\"
 $UserInterfaceServerProjectFolder = "$SolutionRootFolder\src\App\UI\$($DemoProjectName).UI"
 $UserInterfaceClientProjectFolder = "$SolutionRootFolder\src\App\UI\$($DemoProjectName).UI.Client"
 $ApiProjectFolder = "$SolutionRootFolder\src\App\$($DemoProjectName).WebApi"
@@ -59,12 +60,14 @@ if (!($ApiOnly)) {
     $Process = Start-Process -PassThru -NoNewWindow $DotNetExecutablePath -ArgumentList "publish --os linux --arch x64 -c Release -p:PublishProfile=DefaultContainer"
     $Process.WaitForExit()
 
+    Set-Location $UserInterfaceProjectFolder
+
     $UserInterfacePublishContainerContent = '
     $Process = Start-Process -PassThru -NoNewWindow '+ $DotNetExecutablePath + ' -ArgumentList "publish --os linux --arch x64 -c Release -p:PublishProfile=DefaultContainer"
     $Process.WaitForExit()
     '
 
-    $UserInterfacePublishContainerFilePath = "$DomainProjectFolder\PushContainer.ps1"
+    $UserInterfacePublishContainerFilePath = "$UserInterfaceProjectFolder\PushContainer.ps1"
     New-Item -Path $UserInterfacePublishContainerFilePath -ItemType File 
     Set-Content -Path $UserInterfacePublishContainerFilePath -Value $UserInterfacePublishContainerContent
 
