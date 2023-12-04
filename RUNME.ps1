@@ -56,14 +56,11 @@ if (!($ApiOnly)) {
     $Process = Start-Process -PassThru -NoNewWindow $DotNetExecutablePath -ArgumentList "add", "package", $SharedKernelPackageName
     $Process.WaitForExit()
 
-    # publish to local container registry
-    $Process = Start-Process -PassThru -NoNewWindow $DotNetExecutablePath -ArgumentList "publish --os linux --arch x64 -c Release -p:PublishProfile=DefaultContainer"
-    $Process.WaitForExit()
-
+    # Create PublishContainer Helper file
     Set-Location $UserInterfaceProjectFolder
 
     $UserInterfacePublishContainerContent = '
-    $Process = Start-Process -PassThru -NoNewWindow '+ $DotNetExecutablePath + ' -ArgumentList "publish --os linux --arch x64 -c Release -p:PublishProfile=DefaultContainer"
+    $Process = Start-Process -PassThru -NoNewWindow "'+ $DotNetExecutablePath + '" -ArgumentList "publish --os linux --arch x64 -c Release -p:PublishProfile=DefaultContainer"
     $Process.WaitForExit()
     '
 
@@ -80,20 +77,17 @@ Set-Location $ApiProjectFolder
 $Process = Start-Process -PassThru -NoNewWindow $DotNetExecutablePath -ArgumentList "add", "package", $SharedKernelPackageName
 $Process.WaitForExit()
 
-# publish to local container registry
-$Process = Start-Process -PassThru -NoNewWindow $DotNetExecutablePath -ArgumentList "publish --os linux --arch x64 -c Release -p:PublishProfile=DefaultContainer"
-$Process.WaitForExit()
 
+# Create PublishContainer Helper file
 $ApiPublishContainerContent = '
-$Process = Start-Process -PassThru -NoNewWindow '+ $DotNetExecutablePath + ' -ArgumentList "publish --os linux --arch x64 -c Release -p:PublishProfile=DefaultContainer"
+$Process = Start-Process -PassThru -NoNewWindow "'+ $DotNetExecutablePath + '" -ArgumentList "publish --os linux --arch x64 -c Release -p:PublishProfile=DefaultContainer"
 $Process.WaitForExit()
 '
-
 $ApiPublishContainerFilePath = "$ApiProjectFolder\PushContainer.ps1"
 New-Item -Path $ApiPublishContainerFilePath -ItemType File 
 Set-Content -Path $ApiPublishContainerFilePath -Value $ApiPublishContainerContent
 
-
+# Shared Kernel for Packages
 Set-Location $DomainProjectFolder 
 $Process = Start-Process -PassThru -NoNewWindow $DotNetExecutablePath -ArgumentList "add", "package", $SharedKernelPackageName
 $Process.WaitForExit()
