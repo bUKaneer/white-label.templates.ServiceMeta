@@ -55,6 +55,19 @@ if (!($ApiOnly)) {
     $Process = Start-Process -PassThru -NoNewWindow $DotNetExecutablePath -ArgumentList "add", "package", $SharedKernelPackageName
     $Process.WaitForExit()
 
+    # publish to local container registry
+    $Process = Start-Process -PassThru -NoNewWindow $DotNetExecutablePath -ArgumentList "publish --os linux --arch x64 -c Release -p:PublishProfile=DefaultContainer"
+    $Process.WaitForExit()
+
+    $UserInterfacePublishContainerContent = '
+    $Process = Start-Process -PassThru -NoNewWindow '+ $DotNetExecutablePath + ' -ArgumentList "publish --os linux --arch x64 -c Release -p:PublishProfile=DefaultContainer"
+    $Process.WaitForExit()
+    '
+
+    $UserInterfacePublishContainerFilePath = "$DomainProjectFolder\PushContainer.ps1"
+    New-Item -Path $UserInterfacePublishContainerFilePath -ItemType File 
+    Set-Content -Path $UserInterfacePublishContainerFilePath -Value $UserInterfacePublishContainerContent
+
     Set-Location $UserInterfaceClientProjectFolder
     $Process = Start-Process -PassThru -NoNewWindow $DotNetExecutablePath -ArgumentList "add", "package", $SharedKernelPackageName
     $Process.WaitForExit()
@@ -63,6 +76,20 @@ if (!($ApiOnly)) {
 Set-Location $ApiProjectFolder 
 $Process = Start-Process -PassThru -NoNewWindow $DotNetExecutablePath -ArgumentList "add", "package", $SharedKernelPackageName
 $Process.WaitForExit()
+
+# publish to local container registry
+$Process = Start-Process -PassThru -NoNewWindow $DotNetExecutablePath -ArgumentList "publish --os linux --arch x64 -c Release -p:PublishProfile=DefaultContainer"
+$Process.WaitForExit()
+
+$ApiPublishContainerContent = '
+$Process = Start-Process -PassThru -NoNewWindow '+ $DotNetExecutablePath + ' -ArgumentList "publish --os linux --arch x64 -c Release -p:PublishProfile=DefaultContainer"
+$Process.WaitForExit()
+'
+
+$ApiPublishContainerFilePath = "$ApiProjectFolder\PushContainer.ps1"
+New-Item -Path $ApiPublishContainerFilePath -ItemType File 
+Set-Content -Path $ApiPublishContainerFilePath -Value $ApiPublishContainerContent
+
 
 Set-Location $DomainProjectFolder 
 $Process = Start-Process -PassThru -NoNewWindow $DotNetExecutablePath -ArgumentList "add", "package", $SharedKernelPackageName
