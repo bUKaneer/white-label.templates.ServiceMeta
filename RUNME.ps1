@@ -64,7 +64,7 @@ if (!($ApiOnly)) {
     $Process.WaitForExit()
     '
 
-    $UserInterfacePublishContainerFilePath = "$UserInterfaceServerProjectFolder\PushContainer.ps1"
+    $UserInterfacePublishContainerFilePath = "$UserInterfaceServerProjectFolder\PublishContainer.ps1"
     New-Item -Path $UserInterfacePublishContainerFilePath -ItemType File 
     Set-Content -Path $UserInterfacePublishContainerFilePath -Value $UserInterfacePublishContainerContent
 
@@ -83,7 +83,7 @@ $ApiPublishContainerContent = '
 $Process = Start-Process -PassThru -NoNewWindow "'+ $DotNetExecutablePath + '" -ArgumentList "publish --os linux --arch x64 -c Release -p:PublishProfile=DefaultContainer"
 $Process.WaitForExit()
 '
-$ApiPublishContainerFilePath = "$ApiProjectFolder\PushContainer.ps1"
+$ApiPublishContainerFilePath = "$ApiProjectFolder\PublishContainer.ps1"
 New-Item -Path $ApiPublishContainerFilePath -ItemType File 
 Set-Content -Path $ApiPublishContainerFilePath -Value $ApiPublishContainerContent
 
