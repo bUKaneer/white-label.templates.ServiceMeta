@@ -93,13 +93,9 @@ $Process.WaitForExit()
 
 $DomainPackPushCommands = '
 $Process = Start-Process -NoNewWindow -PassThru $DotNetExecutablePath -ArgumentList "pack", "--output nupkgs"
-$Process.WaitForExit()'
-$DomainPackPushCommands = $DomainPackPushCommands + '
-$Process = Start-Process -NoNewWindow -PassThru $DotNetExecutablePath -ArgumentList "nuget", "push", "./nupkgs/$DemoProjectName.Domain.1.0.0.nupkg", "-s http://localhost:
-'
-$DomainPackPushCommands = $DomainPackPushCommands + $PackageSourcePort
-$DomainPackPushCommands = $DomainPackPushCommands + '
-/v3/index.json", "-k 8B516EDB-7523-476E-AF43-79CCA054CE9F"
+$Process.WaitForExit()
+
+$Process = Start-Process -NoNewWindow -PassThru $DotNetExecutablePath -ArgumentList "nuget", "push", "./nupkgs/$DemoProjectName.Domain.1.0.0.nupkg", "-s http://localhost:' + $PackageSourcePort + '/v3/index.json", "-k 8B516EDB-7523-476E-AF43-79CCA054CE9F"
 $Process.WaitForExit()
 '
 
@@ -117,13 +113,9 @@ $Process.WaitForExit()
 
 $InfrastructurePackPushCommands = '
 $Process = Start-Process -NoNewWindow -PassThru $DotNetExecutablePath -ArgumentList "pack", "--output nupkgs"
-$Process.WaitForExit()'
-$InfrastructurePackPushCommands = $InfrastructurePackPushCommands + '
-$Process = Start-Process -NoNewWindow -PassThru $DotNetExecutablePath -ArgumentList "nuget", "push", "./nupkgs/$DemoProjectName.Infrastructure.1.0.0.nupkg", "-s http://localhost:
-'
-$InfrastructurePackPushCommands = $InfrastructurePackPushCommands + $PackageSourcePort
-$InfrastructurePackPushCommands = $InfrastructurePackPushCommands + '
-/v3/index.json", "-k 8B516EDB-7523-476E-AF43-79CCA054CE9F"
+$Process.WaitForExit()
+
+$Process = Start-Process -NoNewWindow -PassThru $DotNetExecutablePath -ArgumentList "nuget", "push", "./nupkgs/$DemoProjectName.Infrastructure.1.0.0.nupkg", "-s http://localhost:' + $PackageSourcePort + '/v3/index.json", "-k 8B516EDB-7523-476E-AF43-79CCA054CE9F"
 $Process.WaitForExit()
 '
 
@@ -142,13 +134,9 @@ $Process.WaitForExit()
 
 $UseCasesPackPushCommands = '
 $Process = Start-Process -NoNewWindow -PassThru $DotNetExecutablePath -ArgumentList "pack", "--output nupkgs"
-$Process.WaitForExit()'
-$UseCasesPackPushCommands = $UseCasesPackPushCommands + '
-$Process = Start-Process -NoNewWindow -PassThru $DotNetExecutablePath -ArgumentList "nuget", "push", "./nupkgs/$DemoProjectName.UseCases.1.0.0.nupkg", "-s http://localhost:
-'
-$UseCasesPackPushCommands = $UseCasesPackPushCommands + $PackageSourcePort
-$UseCasesPackPushCommands = $UseCasesPackPushCommands + '
-/v3/index.json", "-k 8B516EDB-7523-476E-AF43-79CCA054CE9F"
+$Process.WaitForExit()
+
+$Process = Start-Process -NoNewWindow -PassThru $DotNetExecutablePath -ArgumentList "nuget", "push", "./nupkgs/$DemoProjectName.UseCases.1.0.0.nupkg", "-s http://localhost:' + $PackageSourcePort + '/v3/index.json", "-k 8B516EDB-7523-476E-AF43-79CCA054CE9F"
 $Process.WaitForExit()
 '
 
