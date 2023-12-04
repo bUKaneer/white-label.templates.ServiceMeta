@@ -64,7 +64,7 @@ if (!($ApiOnly)) {
     $Process.WaitForExit()
     '
 
-    $UserInterfacePublishContainerFilePath = "$UserInterfaceProjectFolder\PushContainer.ps1"
+    $UserInterfacePublishContainerFilePath = "$UserInterfaceServerProjectFolder\PushContainer.ps1"
     New-Item -Path $UserInterfacePublishContainerFilePath -ItemType File 
     Set-Content -Path $UserInterfacePublishContainerFilePath -Value $UserInterfacePublishContainerContent
 
