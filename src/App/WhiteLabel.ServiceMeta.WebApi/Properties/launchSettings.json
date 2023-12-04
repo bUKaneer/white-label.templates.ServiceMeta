@@ -16,7 +16,9 @@
       "launchUrl": "swagger",
       "applicationUrl": "http://localhost:API_PORT",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ASPNETCORE_HTTP_PORTS": "USERINTERFACE_PORT",
+        "ASPNETCORE_URLS": "http://localhost:USERINTERFACE_PORT"
       }
     },
     "https": {
@@ -26,7 +28,10 @@
       "launchUrl": "swagger",
       "applicationUrl": "https://localhost:API_HTTPS_PORT;http://localhost:API_PORT",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ASPNETCORE_HTTP_PORTS": "USERINTERFACE_PORT",
+        "ASPNETCORE_HTTPS_PORTS": "USERINTERFACE_HTTPS_PORT",
+        "ASPNETCORE_URLS": "https://localhost:USERINTERFACE_HTTPS_PORT;http://localhost:USERINTERFACE_PORT"
       }
     },
     "IIS Express": {

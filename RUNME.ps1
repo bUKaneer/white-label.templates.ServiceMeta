@@ -106,7 +106,7 @@ $Process.WaitForExit()
 $PortConfigPath = "$PackagesAndContainersSolutionFolder\ports.config.json"
 $PortConfigJson = Get-Content $PortConfigPath | Out-String | ConvertFrom-Json
 $PackageSourcePort = $PortConfigJson.PackagesUserInterfacePort
-$CoontainerRegistrySourcePort = $PortConfigJson.PackagesUserInterfacePort
+$ContainersRegistryPort = $PortConfigJson.ContainersRegistryPort
 
 Set-Location $DomainProjectFolder
 
@@ -274,11 +274,13 @@ Replace:
 {CONTAINER_REGISTRY_PORT}
 
 With this:
-'@ + $ContainersRegistryPort+ @'
+'@ 
+
+Write-Host $ContainersRegistryPort
+
+Write-Host @'
 
 This will enable publish to container support.
-
-
 
 '@
 
