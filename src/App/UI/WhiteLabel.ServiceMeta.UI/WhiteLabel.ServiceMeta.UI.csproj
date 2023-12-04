@@ -6,8 +6,16 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <!--Containerisation-->
+  <PropertyGroup>
+    <ContainerRepository>WhiteLabel.ServiceMeta.UI</ContainerRepository>
+    <ContainerRegistry>localhost:{CONTAINER_REGISTRY_PORT}</ContainerRegistry>
+    <ContainerImageTag>0.0.1-alpha</ContainerImageTag>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.0" />
+    <PackageReference Include="Microsoft.NET.Build.Containers" Version="8.0.100" />
   </ItemGroup>
 
   <ItemGroup>

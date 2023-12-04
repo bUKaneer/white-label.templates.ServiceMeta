@@ -106,6 +106,7 @@ $Process.WaitForExit()
 $PortConfigPath = "$PackagesAndContainersSolutionFolder\ports.config.json"
 $PortConfigJson = Get-Content $PortConfigPath | Out-String | ConvertFrom-Json
 $PackageSourcePort = $PortConfigJson.PackagesUserInterfacePort
+$CoontainerRegistrySourcePort = $PortConfigJson.PackagesUserInterfacePort
 
 Set-Location $DomainProjectFolder
 
@@ -265,5 +266,24 @@ var websiteFrontend = builder.AddProject<Projects.$ProjectName_Sample_Demo_UserI
 
 builder.Build().Run();
 
+---
+
+Edit botht he UI Server and WebAPI csproj files.
+
+Replace:
+{CONTAINER_REGISTRY_PORT}
+
+With this:
+'@ + $ContainersRegistryPort+ @'
+
+This will enable publish to container support.
+
+
+
 '@
+
+
+
+
+
 

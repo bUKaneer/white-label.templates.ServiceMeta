@@ -16,7 +16,9 @@
       "inspectUri": "{wsProtocol}://{url.hostname}:{url.port}/_framework/debug/ws-proxy?browser={browserInspectUri}",
       "applicationUrl": "http://localhost:USERINTERFACE_PORT",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ASPNETCORE_HTTP_PORTS": "USERINTERFACE_PORT",
+        "ASPNETCORE_URLS": "http://localhost:USERINTERFACE_PORT"
       }
     },
     "https": {
@@ -26,7 +28,10 @@
       "inspectUri": "{wsProtocol}://{url.hostname}:{url.port}/_framework/debug/ws-proxy?browser={browserInspectUri}",
       "applicationUrl": "https://localhost:USERINTERFACE_HTTPS_PORT;http://localhost:USERINTERFACE_PORT",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ASPNETCORE_HTTP_PORTS": "USERINTERFACE_PORT",
+        "ASPNETCORE_HTTPS_PORTS": "USERINTERFACE_HTTPS_PORT",
+        "ASPNETCORE_URLS": "https://localhost:USERINTERFACE_HTTPS_PORT;http://localhost:USERINTERFACE_PORT"
       }
     },
     "IIS Express": {
