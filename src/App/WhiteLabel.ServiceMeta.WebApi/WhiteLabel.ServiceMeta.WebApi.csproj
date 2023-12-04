@@ -10,7 +10,7 @@
 
   <!--Containerisation-->
   <PropertyGroup>
-    <ContainerRepository>WhiteLabel.ServiceMeta.UI</ContainerRepository>
+    <ContainerRepository>WhiteLabel.ServiceMeta.Api</ContainerRepository>
     <ContainerRegistry>localhost:{CONTAINER_REGISTRY_PORT}</ContainerRegistry>
     <ContainerImageTag>0.0.1-alpha</ContainerImageTag>
   </PropertyGroup>
