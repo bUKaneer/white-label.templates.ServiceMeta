@@ -104,8 +104,8 @@ $Process.WaitForExit()
 '
 
 $DomainPackPushFilePath = "$DomainProjectFolder\PushPackage.ps1"
-New-Item -Path = $DomainPackPushFilePath -ItemType File 
-Set-Content -Path = $DomainPackPushFilePath -Value $DomainPackPushCommands
+New-Item -Path $DomainPackPushFilePath -ItemType File 
+Set-Content -Path $DomainPackPushFilePath -Value $DomainPackPushCommands
 
 Set-Location $InfrastructureProjectFolder
 
@@ -128,8 +128,8 @@ $Process.WaitForExit()
 '
 
 $InfrastructurePackPushFilePath = "$InfrastructureProjectFolder\PushPackage.ps1"
-New-Item -Path = $InfrastructurePackPushFilePath -ItemType File 
-Set-Content -Path = $InfrastructurePackPushFilePath -Value $InfrastructurePackPushCommands
+New-Item -Path $InfrastructurePackPushFilePath -ItemType File 
+Set-Content -Path $InfrastructurePackPushFilePath -Value $InfrastructurePackPushCommands
 
 
 Set-Location $UseCasesProjectFolder
@@ -153,8 +153,8 @@ $Process.WaitForExit()
 '
 
 $UseCasesPackPushFilePath = "$UseCasesProjectFolder\PushPackage.ps1"
-New-Item -Path = $UseCasesPackPushFilePath -ItemType File 
-Set-Content -Path = $UseCasesPackPushFilePath -Value $UseCasesPackPushCommands
+New-Item -Path $UseCasesPackPushFilePath -ItemType File 
+Set-Content -Path $UseCasesPackPushFilePath -Value $UseCasesPackPushCommands
 
 # Setup Service in Aspire Host 
 
