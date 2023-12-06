@@ -257,11 +257,11 @@ Replace the code in Program.cs with the following setup.
 
 var builder = DistributedApplication.CreateBuilder(args);
 
-var apiBackendForFrontEnd = builder.AddProject<Projects.$ProjectName_Sample_Demo_WebApi>(""api-backend-for-frontend"")
-.WithLaunchProfile(""https"");
+var apiBackendForFrontEnd = builder.AddProject<Projects.$($DemoProjectName)_WebApi>(""api-backend-for-frontend"")
+.WithLaunchProfile(""http"");
 
-var frontend = builder.AddProject<Projects.$ProjectName_Sample_Demo_UserInterface>(""ui-frontend"")
-.WithLaunchProfile(""https"")
+var frontend = builder.AddProject<Projects.$($DemoProjectName)_UserInterface>(""ui-frontend"")
+.WithLaunchProfile(""http"")
 .WithReference(apiBackendForFrontEnd);
 
 builder.Build().Run();
