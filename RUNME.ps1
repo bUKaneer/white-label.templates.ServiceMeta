@@ -268,7 +268,7 @@ builder.Build().Run();
 
 ---
 
-Edit both the UI Server and WebAPI csproj files.
+Edit both the UI Server and WebAPI csproj files (Find in files from the top level folder).
 
 Replace:
 {CONTAINER_REGISTRY_PORT}
