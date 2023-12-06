@@ -17,8 +17,8 @@
       "applicationUrl": "http://localhost:API_PORT",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "ASPNETCORE_HTTP_PORTS": "USERINTERFACE_PORT",
-        "ASPNETCORE_URLS": "http://localhost:USERINTERFACE_PORT"
+        "ASPNETCORE_HTTP_PORTS": "API_PORT",
+        "ASPNETCORE_URLS": "http://localhost:API_PORT"
       }
     },
     "https": {
@@ -29,9 +29,9 @@
       "applicationUrl": "https://localhost:API_HTTPS_PORT;http://localhost:API_PORT",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "ASPNETCORE_HTTP_PORTS": "USERINTERFACE_PORT",
-        "ASPNETCORE_HTTPS_PORTS": "USERINTERFACE_HTTPS_PORT",
-        "ASPNETCORE_URLS": "https://localhost:USERINTERFACE_HTTPS_PORT;http://localhost:USERINTERFACE_PORT"
+        "ASPNETCORE_HTTP_PORTS": "API_PORT",
+        "ASPNETCORE_HTTPS_PORTS": "API_HTTPS_PORT",
+        "ASPNETCORE_URLS": "https://localhost:API_HTTPS_PORT;http://localhost:API_PORT"
       }
     },
     "IIS Express": {

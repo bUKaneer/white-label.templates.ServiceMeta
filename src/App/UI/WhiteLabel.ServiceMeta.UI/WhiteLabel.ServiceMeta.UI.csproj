@@ -12,6 +12,10 @@
     <ContainerRegistry>localhost:{CONTAINER_REGISTRY_PORT}</ContainerRegistry>
     <ContainerImageTag>0.0.1-alpha</ContainerImageTag>
   </PropertyGroup>
+  <ItemGroup>
+    <ContainerEnvironmentVariable Include="ASPNETCORE_HTTP_PORTS" Value="USERINTERFACE_PORT" />
+    <ContainerEnvironmentVariable Include="DOTNET_GENERATE_ASPNET_CERTIFICATE" Value="false" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.0" />
