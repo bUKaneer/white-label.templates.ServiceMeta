@@ -249,7 +249,7 @@ Write-Host ""
 Write-Host ""
 Write-Host ""
 Write-Host ""
-Write-Host @'
+Write-Host "
 All done!
 
 Replace the code in Program.cs with the following setup.
@@ -257,35 +257,25 @@ Replace the code in Program.cs with the following setup.
 
 var builder = DistributedApplication.CreateBuilder(args);
 
-var apiBackendForFrontEnd = builder.AddProject<Projects.$ProjectName_Sample_Demo_WebApi>("website-api-backend-for-frontend")
-.WithLaunchProfile("https");
+var apiBackendForFrontEnd = builder.AddProject<Projects.$ProjectName_Sample_Demo_WebApi>(""api-backend-for-frontend"")
+.WithLaunchProfile(""https"");
 
-var websiteFrontend = builder.AddProject<Projects.$ProjectName_Sample_Demo_UserInterface>("website-frontend")
-.WithLaunchProfile("https")
+var frontend = builder.AddProject<Projects.$ProjectName_Sample_Demo_UserInterface>(""ui-frontend"")
+.WithLaunchProfile(""https"")
 .WithReference(apiBackendForFrontEnd);
 
 builder.Build().Run();
 
 ---
 
-Edit botht he UI Server and WebAPI csproj files.
+Edit both the UI Server and WebAPI csproj files.
 
 Replace:
 {CONTAINER_REGISTRY_PORT}
 
 With this:
-'@ 
-
-Write-Host $ContainersRegistryPort
-
-Write-Host @'
+$ContainersRegistryPort
 
 This will enable publish to container support.
 
-'@
-
-
-
-
-
-
+"
