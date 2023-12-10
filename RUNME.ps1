@@ -298,8 +298,6 @@ Write-Host "
 
 if ($ApiOnly) {
 
-    Set-Location $UserInterfaceProjectFolder
-
     Remove-Item -Path $UserInterfaceProjectFolder 
 
 }
