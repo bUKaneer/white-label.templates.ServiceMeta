@@ -257,25 +257,49 @@ Replace the code in Program.cs with the following setup.
 
 var builder = DistributedApplication.CreateBuilder(args);
 
-var apiBackendForFrontEnd = builder.AddProject<Projects.$($DemoProjectName)_WebApi>(""api-backend-for-frontend"")
-.WithLaunchProfile(""http"");
-
-var frontend = builder.AddProject<Projects.$($DemoProjectName)_UserInterface>(""ui-frontend"")
-.WithLaunchProfile(""http"")
-.WithReference(apiBackendForFrontEnd);
-
-builder.Build().Run();
-
----
-
-Edit both the UI Server and WebAPI csproj files (Find in files from the top level folder).
-
-Replace:
-{CONTAINER_REGISTRY_PORT}
-
-With this:
-$ContainersRegistryPort
-
-This will enable publish to container support.
-
 "
+
+if ($ApiOnly) {
+
+    Write-Host "var api = builder.AddProject<Projects.$($DemoProjectName)_WebApi>(""api"")
+    .WithLaunchProfile(""http"");"
+
+}
+
+if (!($ApiOnly)) {
+
+    Write-Host "var apiBackendForFrontEnd = builder.AddProject<Projects.$($DemoProjectName)_WebApi>(""api-backend-for-frontend"")
+    .WithLaunchProfile(""http"");
+    
+    var frontend = builder.AddProject<Projects.$($DemoProjectName)_UserInterface>(""ui-frontend"")
+    .WithLaunchProfile(""http"")
+    .WithReference(apiBackendForFrontEnd);
+    "
+
+}
+
+Write-Host ""
+Write-Host "
+    builder.Build().Run();
+
+    -- -
+
+    Edit both the UI Server and WebAPI csproj files (Find in files from the top level folder).
+
+    Replace:
+    { CONTAINER_REGISTRY_PORT }
+
+    With this:
+    $ContainersRegistryPort
+
+    This will enable publish to container support.
+
+    "
+
+if ($ApiOnly) {
+
+    Set-Location $UserInterfaceProjectFolder
+
+    Remove-Item -Path $UserInterfaceProjectFolder 
+
+}
