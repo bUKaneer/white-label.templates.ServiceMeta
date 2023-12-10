@@ -289,7 +289,7 @@ Write-Host "
     Edit both the UI Server and WebAPI csproj files (Find in files from the top level folder).
 
     Replace:
-    { CONTAINER_REGISTRY_PORT }
+    {CONTAINER_REGISTRY_PORT}
 
     With this:
     $ContainersRegistryPort
