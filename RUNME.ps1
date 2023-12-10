@@ -245,6 +245,8 @@ Set-Location $AspireAppHostFolder
 $Process = Start-Process -PassThru -NoNewWindow $DotNetExecutablePath -ArgumentList "build"
 $Process.WaitForExit()
 
+$AspireProjectsCompatibleProjectName = $DemoProjectName -replace '\.', '_'
+
 Write-Host ""
 Write-Host ""
 Write-Host ""
@@ -261,17 +263,17 @@ var builder = DistributedApplication.CreateBuilder(args);
 
 if ($ApiOnly) {
 
-    Write-Host "var api = builder.AddProject<Projects.$($DemoProjectName)_WebApi>(""api"")
+    Write-Host "var api = builder.AddProject<Projects.$($AspireProjectsCompatibleProjectName)_WebApi>(""api"")
     .WithLaunchProfile(""http"");"
 
 }
 
 if (!($ApiOnly)) {
 
-    Write-Host "var apiBackendForFrontEnd = builder.AddProject<Projects.$($DemoProjectName)_WebApi>(""api-backend-for-frontend"")
+    Write-Host "var apiBackendForFrontEnd = builder.AddProject<Projects.$($AspireProjectsCompatibleProjectName)_WebApi>(""api-backend-for-frontend"")
     .WithLaunchProfile(""http"");
     
-    var frontend = builder.AddProject<Projects.$($DemoProjectName)_UserInterface>(""ui-frontend"")
+    var frontend = builder.AddProject<Projects.$($AspireProjectsCompatibleProjectName)_UserInterface>(""ui-frontend"")
     .WithLaunchProfile(""http"")
     .WithReference(apiBackendForFrontEnd);
     "
