@@ -5,6 +5,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <RootNamespace>UseCases</RootNamespace>
+    <PackageId>WhiteLabel.ServiceMeta.UseCases</PackageId>
+    <PackageVersion>1.0.0</PackageVersion>
   </PropertyGroup>
 
 </Project>
