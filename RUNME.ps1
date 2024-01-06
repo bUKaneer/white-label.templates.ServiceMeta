@@ -26,7 +26,6 @@ $UseCasesProjectFolder = "$SolutionRootFolder\src\$($DemoProjectName).UseCases"
 # Add Nuget Configuration so Service Defaults are findble
 
 $NugetConfigFilePath = "$AspireSolutionFolder\$AspireProjectName.AppHost\nuget.config"
-#$ConfigurationFolder = "$ProjectFolder\Configuration"
 
 Copy-Item -Path $NugetConfigFilePath -Destination $UserInterfaceServerProjectFolder
 Copy-Item -Path $NugetConfigFilePath -Destination $ApiProjectFolder
@@ -173,42 +172,7 @@ Set-Content -Path $UseCasesPackPushFilePath -Value $UseCasesPackPushCommands
 
 Set-Location $AspireSolutionFolder
 
-# Add Projects to Aspire Solution
 
-if (!($ApiOnly)) {
-    $UserInterfaceServerProjectFilePath = "$UserInterfaceServerProjectFolder\$($DemoProjectName).UI.csproj"
-
-    $Process = Start-Process -PassThru -NoNewWindow $DotNetExecutablePath -ArgumentList "sln", "add", $UserInterfaceServerProjectFilePath, "--solution-folder", "Services\$($DemoProjectName)"
-    $Process.WaitForExit()
-
-    $UserInterfaceClientProjectFilePath = "$UserInterfaceClientProjectFolder\$($DemoProjectName).UI.Client.csproj"
-
-    $Process = Start-Process -PassThru -NoNewWindow $DotNetExecutablePath -ArgumentList "sln", "add", $UserInterfaceClientProjectFilePath, "--solution-folder", "Services\$($DemoProjectName)"
-    $Process.WaitForExit()
-}
-
-$WebApiProjectFilePath = "$ApiProjectFolder\$($DemoProjectName).WebApi.csproj"
-
-$Process = Start-Process -PassThru -NoNewWindow $DotNetExecutablePath -ArgumentList "sln", "add", $WebApiProjectFilePath, "--solution-folder", "Services\$($DemoProjectName)"
-$Process.WaitForExit()
-
-# Add Reference from UserInterface and WebApi to App.Host Project
-
-$AspireAppHostFolder = "$AspireSolutionFolder\$($AspireProjectName).AppHost"
-
-Set-Location $AspireAppHostFolder
-
-if (!($ApiOnly)) {
-    $Process = Start-Process -PassThru -NoNewWindow $DotNetExecutablePath -ArgumentList "add", "reference", $UserInterfaceServerProjectFilePath
-    $Process.WaitForExit()
-
-    #$Process = Start-Process -PassThru -NoNewWindow $DotNetExecutablePath -ArgumentList "add", "reference", $UserInterfaceClientProjectFilePath
-    #$Process.WaitForExit()
-}
-
-
-$Process = Start-Process -PassThru -NoNewWindow $DotNetExecutablePath -ArgumentList "add", "reference", $WebApiProjectFilePath
-$Process.WaitForExit()
 
 # Setup Package References for Projects
 
@@ -245,7 +209,8 @@ Set-Location $AspireAppHostFolder
 $Process = Start-Process -PassThru -NoNewWindow $DotNetExecutablePath -ArgumentList "build"
 $Process.WaitForExit()
 
-$AspireProjectsCompatibleProjectName = $DemoProjectName -replace '\.', '_'
+$UserInterfaceServerProjectFilePath = "$UserInterfaceServerProjectFolder\$($DemoProjectName).UI.csproj"
+$WebApiProjectFilePath = "$ApiProjectFolder\$($DemoProjectName).WebApi.csproj"
 
 Write-Host ""
 Write-Host ""
@@ -263,19 +228,26 @@ var builder = DistributedApplication.CreateBuilder(args);
 
 if ($ApiOnly) {
 
-    Write-Host "var api = builder.AddProject<Projects.$($AspireProjectsCompatibleProjectName)_WebApi>(""api"")
-    .WithLaunchProfile(""http"");"
+    Write-Host "
+    
+    var api = builder.AddProject(name: ""api"", projectPath: projectPath: ""$WebApiProjectFilePath"")
+    .WithLaunchProfile(""http"");
+    
+    "
 
 }
 
 if (!($ApiOnly)) {
 
-    Write-Host "var apiBackendForFrontEnd = builder.AddProject<Projects.$($AspireProjectsCompatibleProjectName)_WebApi>(""api-backend-for-frontend"")
+    Write-Host "
+    
+    var bff = builder.AddProject(name: ""bff"", projectPath: projectPath: ""$WebApiProjectFilePath"")
     .WithLaunchProfile(""http"");
     
-    var frontend = builder.AddProject<Projects.$($AspireProjectsCompatibleProjectName)_UserInterface>(""ui-frontend"")
+    var frontend = builder.AddProject(name: ""frontend"", projectPath: projectPath: ""$UserInterfaceServerProjectFilePath"")
     .WithLaunchProfile(""http"")
-    .WithReference(apiBackendForFrontEnd);
+    .WithReference(bff);
+
     "
 
 }
@@ -283,8 +255,6 @@ if (!($ApiOnly)) {
 Write-Host ""
 Write-Host "
     builder.Build().Run();
-
-    -- -
 
     Edit both the UI Server and WebAPI csproj files (Find in files from the top level folder).
 
