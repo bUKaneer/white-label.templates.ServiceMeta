@@ -241,10 +241,10 @@ if (!($ApiOnly)) {
 
     Write-Host "
     
-    var bff = builder.AddProject(name: ""bff"", projectPath: projectPath: ""$WebApiProjectFilePath"")
+    var bff = builder.AddProject(name: ""bff"", projectPath: ""$WebApiProjectFilePath"")
     .WithLaunchProfile(""http"");
     
-    var frontend = builder.AddProject(name: ""frontend"", projectPath: projectPath: ""$UserInterfaceServerProjectFilePath"")
+    var frontend = builder.AddProject(name: ""frontend"", projectPath: ""$UserInterfaceServerProjectFilePath"")
     .WithLaunchProfile(""http"")
     .WithReference(bff);
 
