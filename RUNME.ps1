@@ -168,12 +168,6 @@ $UseCasesPackPushFilePath = "$UseCasesProjectFolder\PushPackage.ps1"
 New-Item -Path $UseCasesPackPushFilePath -ItemType File 
 Set-Content -Path $UseCasesPackPushFilePath -Value $UseCasesPackPushCommands
 
-# Setup Service in Aspire Host 
-
-Set-Location $AspireSolutionFolder
-
-
-
 # Setup Package References for Projects
 
 $DomainPackageName = "$DemoProjectName.Domain"
@@ -204,6 +198,7 @@ $Process.WaitForExit()
 $Process = Start-Process -PassThru -NoNewWindow $DotNetExecutablePath -ArgumentList "add", "package", $UseCasesPackageName
 $Process.WaitForExit()
 
+$AspireAppHostFolder = "$AspireSolutionFolder\$ProjectNameBase.Aspire.AppHost"
 Set-Location $AspireAppHostFolder
 
 $Process = Start-Process -PassThru -NoNewWindow $DotNetExecutablePath -ArgumentList "build"
@@ -217,22 +212,20 @@ Write-Host ""
 Write-Host ""
 Write-Host ""
 Write-Host "
-All done!
 
-Replace the code in Program.cs with the following setup.
+    The robots have completed their task. To complete the setup please update program.cs and set containerisation port settings, details below.
 
-
-var builder = DistributedApplication.CreateBuilder(args);
-
+    ***** Update Program.cs **********
+    
+    var builder = DistributedApplication.CreateBuilder(args);
 "
 
 if ($ApiOnly) {
 
     Write-Host "
-    
-    var api = builder.AddProject(name: ""api"", projectPath: projectPath: ""$WebApiProjectFilePath"")
+    var api = builder.AddProject(name: ""api"", projectPath: ""$WebApiProjectFilePath"")
     .WithLaunchProfile(""http"");
-    
+
     "
 
 }
@@ -240,7 +233,6 @@ if ($ApiOnly) {
 if (!($ApiOnly)) {
 
     Write-Host "
-    
     var bff = builder.AddProject(name: ""bff"", projectPath: ""$WebApiProjectFilePath"")
     .WithLaunchProfile(""http"");
     
@@ -249,12 +241,12 @@ if (!($ApiOnly)) {
     .WithReference(bff);
 
     "
-
 }
 
-Write-Host ""
 Write-Host "
     builder.Build().Run();
+
+    ***** Containisation Setup **********
 
     Edit both the UI Server and WebAPI csproj files (Find in files from the top level folder).
 
@@ -264,12 +256,12 @@ Write-Host "
     With this:
     $ContainersRegistryPort
 
-    This will enable publish to container support.
+    
 
     "
 
 if ($ApiOnly) {
 
-    Remove-Item -Path $UserInterfaceProjectFolder 
+    Remove-Item -Path $UserInterfaceProjectFolder -Force
 
 }
