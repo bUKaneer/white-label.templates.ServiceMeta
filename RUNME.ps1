@@ -6,6 +6,35 @@ param(
     [String]$PackagesAndContainersSolutionFolder = "C:\WhiteLabel\WhiteLabel\WhiteLabel.PackagesAndContainers",
     [bool]$ApiOnly = 1)
 
+Function Set-PushPackageFile {
+    [CmdletBinding()]
+    Param(
+        [Parameter(Position = 0)]
+        [String]$ProjectName,
+        [Parameter(Position = 1)]
+        [String]$ProjectFolder 
+    )
+    $FileContent = '
+        $DotnetExe = "C:\Program Files\dotnet\dotnet.exe"
+
+        $Process = Start-Process -NoNewWindow -PassThru $DotnetExe -ArgumentList "pack", "--output nupkgs"
+        $Process.WaitForExit()
+
+        $PackageDestination = "http://localhost:30957/v3/index.json"
+        $PackageDestinationKey = "8B516EDB-7523-476E-AF43-79CCA054CE9F"
+        $PackageName = "' + $ProjectName + '"
+        $PackageVersion = "1.0.0"
+        $PackagePath = "./nupkgs/$PackageName.$PackageVersion.nupkg"
+
+        $Process = Start-Process -NoNewWindow -PassThru $DotnetExe -ArgumentList "nuget", "push", $PackagePath, "-s $PackageDestination", "-k $PackageDestinationKey"
+        $Process.WaitForExit()
+        '
+
+    $FilePath = $ProjectFolder + "\PushPackage.ps1"
+    New-Item -Path $FilePath -ItemType File 
+    Set-Content -Path $FilePath -Value $FileContent
+}
+
 # Welcome 
 Clear-Host
 $DemoProjectName = Split-Path -Path (Get-Location) -Leaf
@@ -115,17 +144,8 @@ $Process.WaitForExit()
 $Process = Start-Process -NoNewWindow -PassThru $DotNetExecutablePath -ArgumentList "nuget", "push", "./nupkgs/$DemoProjectName.Domain.1.0.0.nupkg", "-s http://localhost:$PackageSourcePort/v3/index.json", "-k 8B516EDB-7523-476E-AF43-79CCA054CE9F"
 $Process.WaitForExit()
 
-$DomainPackPushCommands = '
-$Process = Start-Process -NoNewWindow -PassThru "' + $DotNetExecutablePath + '" -ArgumentList "pack", "--output nupkgs"
-$Process.WaitForExit()
-
-$Process = Start-Process -NoNewWindow -PassThru "' + $DotNetExecutablePath + '" -ArgumentList "nuget", "push", "./nupkgs/' + $DemoProjectName + '.Domain.1.0.0.nupkg", "-s http://localhost:' + $PackageSourcePort + '/v3/index.json", "-k 8B516EDB-7523-476E-AF43-79CCA054CE9F"
-$Process.WaitForExit()
-'
-
-$DomainPackPushFilePath = "$DomainProjectFolder\PushPackage.ps1"
-New-Item -Path $DomainPackPushFilePath -ItemType File 
-Set-Content -Path $DomainPackPushFilePath -Value $DomainPackPushCommands
+$DomainProjectName = $DemoProjectName + ".Domain"
+Set-PushPackageFile $DomainProjectName $DomainProjectFolder
 
 Set-Location $InfrastructureProjectFolder
 
