@@ -144,8 +144,8 @@ $Process.WaitForExit()
 $Process = Start-Process -NoNewWindow -PassThru $DotNetExecutablePath -ArgumentList "nuget", "push", "./nupkgs/$DemoProjectName.Domain.1.0.0.nupkg", "-s http://localhost:$PackageSourcePort/v3/index.json", "-k 8B516EDB-7523-476E-AF43-79CCA054CE9F"
 $Process.WaitForExit()
 
-$DomainProjectName = $DemoProjectName + ".Domain"
-Set-PushPackageFile $DomainProjectName $DomainProjectFolder
+$DomainPackageName = $DemoProjectName + ".Domain"
+Set-PushPackageFile $DomainPackageName $DomainProjectFolder
 
 Set-Location $InfrastructureProjectFolder
 
@@ -155,18 +155,8 @@ $Process.WaitForExit()
 $Process = Start-Process -NoNewWindow -PassThru $DotNetExecutablePath -ArgumentList "nuget", "push", "./nupkgs/$DemoProjectName.Infrastructure.1.0.0.nupkg", "-s http://localhost:$PackageSourcePort/v3/index.json", "-k 8B516EDB-7523-476E-AF43-79CCA054CE9F"
 $Process.WaitForExit()
 
-$InfrastructurePackPushCommands = '
-$Process = Start-Process -NoNewWindow -PassThru "'+ $DotNetExecutablePath + '" -ArgumentList "pack", "--output nupkgs"
-$Process.WaitForExit()
-
-$Process = Start-Process -NoNewWindow -PassThru "'+ $DotNetExecutablePath + '" -ArgumentList "nuget", "push", "./nupkgs/' + $DemoProjectName + '.Infrastructure.1.0.0.nupkg", "-s http://localhost:' + $PackageSourcePort + '/v3/index.json", "-k 8B516EDB-7523-476E-AF43-79CCA054CE9F"
-$Process.WaitForExit()
-'
-
-$InfrastructurePackPushFilePath = "$InfrastructureProjectFolder\PushPackage.ps1"
-New-Item -Path $InfrastructurePackPushFilePath -ItemType File 
-Set-Content -Path $InfrastructurePackPushFilePath -Value $InfrastructurePackPushCommands
-
+$InfrastructurePackageName = $DemoProjectName + ".Infrastructure"
+Set-PushPackageFile $InfrastructurePackageName $InfrastructureProjectFolder
 
 Set-Location $UseCasesProjectFolder
 
@@ -176,23 +166,10 @@ $Process.WaitForExit()
 $Process = Start-Process -NoNewWindow -PassThru $DotNetExecutablePath -ArgumentList "nuget", "push", "./nupkgs/$DemoProjectName.UseCases.1.0.0.nupkg", "-s http://localhost:$PackageSourcePort/v3/index.json", "-k 8B516EDB-7523-476E-AF43-79CCA054CE9F"
 $Process.WaitForExit()
 
-$UseCasesPackPushCommands = '
-$Process = Start-Process -NoNewWindow -PassThru "'+ $DotNetExecutablePath + '" -ArgumentList "pack", "--output nupkgs"
-$Process.WaitForExit()
-
-$Process = Start-Process -NoNewWindow -PassThru "'+ $DotNetExecutablePath + '" -ArgumentList "nuget", "push", "./nupkgs/' + $DemoProjectName + '.UseCases.1.0.0.nupkg", "-s http://localhost:' + $PackageSourcePort + '/v3/index.json", "-k 8B516EDB-7523-476E-AF43-79CCA054CE9F"
-$Process.WaitForExit()
-'
-
-$UseCasesPackPushFilePath = "$UseCasesProjectFolder\PushPackage.ps1"
-New-Item -Path $UseCasesPackPushFilePath -ItemType File 
-Set-Content -Path $UseCasesPackPushFilePath -Value $UseCasesPackPushCommands
+$UseCasesPackageName = $DemoProjectName + ".UseCases"
+Set-PushPackageFile $UseCasesPackageName $UseCasesProjectFolder
 
 # Setup Package References for Projects
-
-$DomainPackageName = "$DemoProjectName.Domain"
-$InfrastructurePackageName = "$DemoProjectName.Infrastructure"
-$UseCasesPackageName = "$DemoProjectName.UseCases"
 
 if (!($ApiOnly)) {
     Set-Location $UserInterfaceServerProjectFolder
